@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{multicol}
+\usepackage{svg}
+\usepackage{caption}
+\usepackage{vmargin}
+\usepackage[hidelinks]{hyperref}
+\usepackage[utf8]{inputenc}
+ \usepackage{epigraph}
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+
+\title{Semantic Web Engineering \protect\\ RDF: Describing the resources}
+\author{Xiaozhe Yao\footnote{https://yaonotes.org/lecture-notes}}
+\date{20 Nov 2019}
+\begin{document}
+
+\maketitle
+\begin{center}
+    \includegraphics[width=60px]{Semantic_Web/images/semantic-web.pdf}
+\end{center}
+\section{Introduction}
+
+\subsection{HTML}
+
+The web relies on standard mechanisms to exchange information. Similarly to any exchange language, HTML has a \textit{syntax}: how to write the data, a \textit{data model}: how to structure the data, and a \textit{semantic}: how to interpret the data. HTML provides a set of information needed by the browser to interpret and render 
+
+HTML provides a set of information that is needed by the browser to interpret and render the web page. From the development of HTML, we learned that there is a need for an exchange language for the semantic web.
+
+Semantic web needs a language with a data model that 
+\begin{itemize}
+    \item is generic enough to be used by multiple applications.
+    \item allows the description of application specific information
+\end{itemize}
+
+The semantics and the syntax of such a language should be clearly defined as well to avoid interpretation errors.
+
+\subsection{RDF}
+
+RDF fulfils such a vision, by offering a flexible domain independent data model. It offers different syntaxes, to fit different situations and applications. RDF has a formal and well-defined semantics.
+
+\section{Data Model}
+
+RDF relies on four fundamental concepts:
+\begin{itemize}
+    \item Resources (URI/IRI)
+    \item Properties
+    \item Statements
+    \item Graphs
+\end{itemize}
+
+\subsection{Properties}
+
+Properties are resources used to describe relations between other resources. It is identified by URIs. When identified by URLs, they can be accesssed to find their descriptions. For example, "knows", "meets", "authors" are properties.
+
+\subsection{Statements}
+
+Statements assert the properties of the resources. It is a triple composed by an entity (subject), an attribute (predicate), and a value (object). Entities and attributes are identified by resources. Values can either be resources or literals (e.g. numbers, strings, dates).
+
+For example, we want to express the fact that "Karl knows David". Karl, knows and David are resources and should be identified by URIs.
+
+For literals, any object can be a either a literal or a resource. Literals are atomic values, such as numbers, strings, dates, etc. \textbf{Note:} A literal can never be in the first (subject) or second (predicate) position of the statement. Literals are usually composed of two parts: \textit{the literal value} and \textit{a data type}. It is recommended to use the data types defined in XML Schema\footnote{https://www.w3.org/TR/xmlschema11-2}. We will use xsd as prefix for the XML schema namespace. When no data type is specified, the default type of the literal is "string".
+
+RDF comes with a set of predefined properties and resources. For example, #type indicates that the subject is of type object. #Property identifies the properties.
+
+\subsection{Graphs}
+
+A graph is a a set of statements, and RDF is a graph-centric data model that is similar to semantics nets in AI. 
+
+\end{document}
