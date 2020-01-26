@@ -1,0 +1,893 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{multicol}
+\usepackage{svg}
+\usepackage{caption}
+\usepackage{vmargin}
+\usepackage[hidelinks]{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{epigraph}
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}[subsection]
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{prop}{Proposition}[subsection]
+\newtheorem{lemma}{Lemma}[subsection]
+
+\title{Some Common Sense in Analysis}
+\author{Xiaozhe Yao\footnote{https://yaonotes.org/lecture-notes}}
+\date{20 Nov 2019}
+\begin{document}
+
+\maketitle
+
+\section{Set}
+
+\subsection{Countability}
+
+\begin{defi}
+\textbf{Cardinality} Two sets $A$ and $B$ have the same cardinality if and only if there exists a bijective map $\phi: A\to B$.
+\end{defi}
+
+\begin{defi}
+\textbf{Countable Set} A set is called infinite countable if it has the same cardinality with $\mathbb{N}$. The set is either infinite countable or finite countable, if it is countable.
+\end{defi}
+
+\begin{defi}
+\textbf{Uncountable Set} A set, if it is not countable, is called uncountable set.
+\end{defi}
+
+\begin{prop}
+All subsets of $\mathbb{N}$ are countable.
+\end{prop}
+
+\begin{prop}
+If $B$ is countable, and $\omega: B\to A$ is surjective, then $A$ is countable.
+\end{prop}
+
+\begin{prop}
+The product $N \times N$ is countable.
+\end{prop}
+
+\begin{prop}
+$\mathbb{Q}$ is countable.
+\end{prop}
+
+\begin{prop}
+$\forall n\in \mathbb{N}$, let $A_n$ a countable set, then we have $\bigcup_{n=1}^{\infty}A_{n}$ countable.
+\end{prop}
+
+\begin{prop}
+\textbf{Cantor} Let $M$ be a set, then $M$ and $P(M)$ do not have the same cardinality.
+\end{prop}
+
+\begin{prop}
+$\mathbb{R}$ is uncountable.
+\end{prop}
+
+\begin{prop}
+\textbf{Continuum Hypothesis} Any subset of $\mathbb{R}$ is either countable or have the same cardinality with $\mathbb{R}$.
+\end{prop}
+
+\section{Relation}
+
+\begin{defi}
+\textbf{Relation} Let $M$ be a set, a relation on $M$ is a subset $R$ of $M \times M$. It can be written as $x \sim y$ or $x\sim_{R}y$. It is called $x$ is in relation with $y$ with the respects of $R$, if $(x,y)\in R$ applies.
+\end{defi}
+
+\begin{defi}
+\textbf{Equivalent Relation} Let M be a set, the relation $R$ over $M \times M$ is called equivalent relation, if: 
+\begin{itemize}
+    \item \textit{Reflexive} $x \sim_R x$. $\forall x\in M$.
+    \item \textit{Symmetric} $x \sim_R y \implies y \sim_R x$, $\forall x, y \in M$.
+    \item \textit{Transitive} $x \sim_R y \land y \sim_R z \implies x \sim_R z$. $\forall x, y, z \in M$.
+\end{itemize}
+\end{defi}
+
+\begin{defi}
+\textbf{Equivalent Class} Let $R$ be an equivalent relation on a set $M$, for $m \in M$, the equivalent class of $m$ is given by $[m] := \{x \in M: x\sim_R m\}$. Literally, the equivalent class is such a set that all the element are in a equivalent relation with the given $m$.
+
+\textbf{Representative and Quotient Set}Each element $x \in [m]$ is called a representative of the equivalent class $[m]$. All the equivalent classes consists of the Quotient Set, i.e. $M / \sim := \{[m]: m\in M\}$.
+
+\end{defi}
+
+\begin{theorem}
+\textbf{Disjoint Composition} Let $R$ be an equivalent relation on a set $M$. Then we have $[x] \cap [y] \neq \phi \implies [x]=[y]$. It follows that $M=\bigcup_{[m]\in M/\sim}[m]$ is a disjoint composition of the given $M$.
+\end{theorem}
+
+\begin{defi}
+\textbf{Ordered Relation} A relation $R$ on $M$ is called ordered relation, if: 
+\begin{itemize}
+    \item $x \sim_{R} x$, $\forall x \in M$. (Reflexive)
+    \item $x \sim_{R} y \land y \sim_{R} z \implies x \sim_{R} z$, $\forall x, y, z \in M$. (Transitive)
+    \item $x \sim_{R} y \land y \sim_{R} x \implies x = y$, $\forall x, y \in M$. (Identity)
+\end{itemize}
+
+If a relation is an ordered relation, then it could be written as $x \preceq y$ instead of $x \sim_{R} y$.
+
+A set $M$, along with an ordered relation $\preceq$ is called (partially) ordered set. If $\forall x,y \in M$, we have $x \preceq y \lor y \preceq x$, then it is called totally ordered set.
+
+For example, $(\mathbb{R},\leq)$ is a totally ordered set. For any set $M$, $(P(M), \subset)$ is an ordered set, but generally not a totally ordered set.
+
+\end{defi}
+
+\begin{defi}
+\textbf{Maximal and Minimal} Let $(M, \preceq)$ be an ordered set, and $A \subset M, A \neq \phi$. $m\in A$ is called the \textbf{maximal} if $\forall x, (x \in A)\land(m\preceq x) \implies x = m$. Respectively, $m\in A$ is called minimal if $\forall x, (x \in A)\land(x\preceq m) \implies x = m$.
+
+In general, the maximal and minimal elements do not have to be exist or unique. However, if the relation is totally ordered, then they are unique if they exist.
+
+\begin{proof}
+
+Assume the relation $R$ is totally ordered relation, and $x_1, x_2$ are two maximal. Then either $x_{1} \preceq x_{2}$ or $x_{2} \preceq x_{1}$ applies. We assume that $x_{1} \preceq x_{2}$ applies, then since $x_{1}$ is the maximal, we have $x_{2}=x_{1}$. Similarly, we have this applied on minimal situations. 
+\end{proof}
+\end{defi}
+
+\begin{defi}
+\textbf{Upper and Lower Bounds} Let $(M, \preceq)$ an ordered set, $A \subset M, A \neq \phi$. $m \in M$ is called an \textbf{upper bound} for $A$ if $x \preceq m$, $\forall x\in A$. $m \in M$ is called a \textbf{lower bound} for $A$ if $m \preceq x$, $\forall x \in A$. The upper (lower) bounds indicate the upper (lower) limit.
+
+\textit{Differences between Maximal/Minimal and Bounds}: Bounds do not have to be in the set.
+
+\end{defi}
+
+\begin{defi}
+\textbf{Supremum and Infimum} Let $(M, \preceq)$ an totally ordered set and $A\subset M$ an upper bounded set. Let $B=\{x\in M: x $ is upper bounds of $A\}$. Assume that $B \neq \phi$, and B contains a minimal element $b \in B$, then $b$ is called supremum of A: $b = sup(A)$. \textbf{Note} that $sup(A)$ is unique, if it exists. In general, the supremum $b = sup(A)$ does not have to belong to the set $A$ (by definition, $sup(A)$ belongs to the set of the upper bounds of $A$.
+\end{defi}
+
+\section{Map and Function}
+
+\section{Number}
+
+\subsection{Natural Number}
+
+\begin{defi}
+\textbf{Peano Axiom} The natural numbers form a set $\mathbb{N}$ with a starting element $0$ and a map $v: \mathbb{N}\to \mathbb{N}$ with the following characters:
+
+\begin{itemize}
+    \item $v$ is injective.
+    \item $0 \not\in Range(v)$
+    \item Induction Principle applies, i.e. If $A \subset \mathbb{N}$, $0\in A$, then $n\in A \implies v(n) \in A$.
+\end{itemize}
+
+With these apply, we have $A=\mathbb{N}$. $v(0)$, $v(v(0))$ are written as $1,2$, etc.
+
+\end{defi}
+
+\subsection{Real Number}
+
+\begin{defi}
+\textbf{Completeness of a totally ordered set}. A totally ordered set $(M, \preceq)$ is called complete, if the following requirements meet: Let $A, B \subset M$ not empty, with $a \preceq b, \forall a\in A, b\in B$, there exist $c\in M$ such that $a \preceq c \land c \preceq b, \forall a\in A, b\in B$.
+\end{defi}
+
+\noindent
+By the definition, we know $\mathbb{Q}$ is not complete.
+\begin{proof}
+
+Let $A=\{x\in \mathbb{Q}: x > 0 \land x^2<2 \}$, $B=\{x\in \mathbb{Q}: x > 0 \land x^2>2 \}$. If we assume there exists such an $c\in \mathbb{Q}$ that $a\leq c\leq b$, then we have $c=\sqrt{2}$. However, it contradicts to $c\in \mathbb{Q}$.
+
+We know there exists a complete, ordered set and this set is unique in terms of isomorphisms. It is called $\mathbb{R}$.
+
+\end{proof}
+
+\begin{defi}
+\textbf{Supremum Principle} Each non-empty, capped (upper bounded) subset $A\subset \mathbb{R}$ has a supremum.
+
+\begin{proof}
+Let $A\subset \mathbb{R}$ a non-empty, capped. Then we have $B=\{b\in \mathbb{R}: a \leq b$ for all $a \in A \}$, i.e. $B$ is the set of all upper bounds of $A$. By the completeness of $\mathbb{R}$, we know there exists such an $c\in \mathbb{R}$ that $a\leq c \leq b, \forall a\in A, b\in B$. Since $c\leq a, \forall a\in A$, we know $c$ is an upper bound of $A$. Since $c\leq b, \forall b\in B$, we know c is the minimal of $B$. In follows that $c=sup(A)$.
+\end{proof}
+\end{defi}
+
+\begin{defi}
+\textbf{$\epsilon$-representation} Let $A\subset \mathbb{R}$ not empty and upper bounded, then $s=sup(A)$ exists and is unique, if and only if when $a\leq s, \forall a\in A$, and $\forall \epsilon>0$, there exists an $a\in A$ such that $s-\epsilon < a \leq s$.
+
+\begin{proof}
+Let $s=sup(A)$, then $s$ is an upper bound of $A$, $a\leq s, \forall a\in A$. 
+
+$\Rightarrow$ We use \textbf{contradiction} to prove our claim. If there exists such an $\epsilon$ that $\epsilon>0$ and $a\leq s-\epsilon$, then $s-\epsilon$ will become an upper bound of $A$. It contradicts to the fact that $s$ is the least upper bound.
+
+$\Leftarrow$ Let's assume that $\forall a\in A$, we have $a\leq s$ and $\forall \epsilon>0$, $\exists a\in A$ such that $s-\epsilon < a \leq s$. We want to claim that $s=sup(A)$. $\forall a\in A \implies s$ is an upper bound of $A$. Let us assume that there is a smaller upper bound $t<s$. Then we have $a\leq t$, therefore $a \leq s-(s-t), \forall a\in A$. Let $\epsilon=s-t>0$, then $\forall a\in A$, $a\leq s-\epsilon$. It contradicts to the fact that $\exists a\in A$ such that $s-\epsilon < a \leq s$.
+
+\end{proof}
+\end{defi}
+
+\begin{defi}
+\textbf{Archimedes Principle} $\mathbb{N}\subset \mathbb{R}$ is not upper bounded.
+By contradiction. Let us assume that $\mathbb{N}\subset \mathbb{R}$ is upper bounded. Let $s=sup(\mathbb{N})$. Then for any $\epsilon>0$, $\exists n\in \mathbb{N}$ such that $s-\epsilon<n\leq s$. In particular, for $\epsilon=1$, we have $s-1<n$, i.e. $s<n+1$. It contradicts to the fact that $s=sup(\mathbb{N})$.
+\end{defi}
+
+\subsection{Complex Numbers}
+
+\begin{defi}
+Let $z=x+iy, x,y\in \mathbb{R}$. We have the following concepts:
+
+\begin{itemize}
+    \item $Re(z) := x$ the real part of $z$.
+    \item $Im(z) := y$ the imagine part of $z$.
+    \item $|z| := \sqrt{x^2+y^2}$ the amount of $z$.
+    \item $\overline{z} := x-iy$ the conjugation of $z$. 
+\end{itemize}
+
+\end{defi}
+
+\subsection{Vector Space $\mathbb{V}^{m}$}
+
+\begin{defi}
+\textbf{Vector Space} A set $V$, with an addition method $+: V\times V \to V$ and a scalar multiplication $\ast: \mathbb{R}\times V \to V$ is called vector space over $\mathbb{R}$, if:
+
+\begin{itemize}
+    \item $x+y = y + x, \forall x,y\in V$
+    \item $(x+y)+z = x + (y+z), \forall x,y,z \in V$
+    \item $\exists 0\in V, with x+0=0, \forall x\in V$
+    \item $\forall x\in V, \exists y\in V,$ assigned to $-x$ such that $x+y = 0$
+    \item $\alpha (\beta x) = (\alpha \beta)x, \forall \alpha,\beta \in \mathbb{R}, x, y \in V$
+    \item $1x = x, \forall x \in V$
+\end{itemize}
+\end{defi}
+
+\section{Sequence}
+\begin{defi}
+\textbf{Sequence} A sequence $\mathbb{K}$ is a map from $\mathbb{N} \to \mathbb{K}$. Each natural number corresponds to a value $x_n \in \mathbb{K}$. It is written as ($x_0, x_1,...$) or $(x_n)_{n\in \mathbb{N}}$.
+\end{defi}
+
+\begin{defi}
+\textbf{Accumulation Point} Let $(x_n)_{n\in \mathbb{N}}$ a sequence named $\mathbb{K}$ and $a\in \mathbb{K}$, a is called an accumulation point of $(x_n)_{n\in \mathbb{N}}$, if $\forall \epsilon>0$, there exists an infinite subset $N_\epsilon$ of $\mathbb{N}$ such that $|x_n - a|<\epsilon, \forall n\in N_\epsilon$.
+\end{defi}
+
+\begin{prop}
+\label{prop_of_accumulation_point}
+The following statements are equivalent:
+\begin{itemize}
+    \item $a$ is the accumulation point of $(x_n)_n\in \mathbb{N}$
+    \item $\forall\epsilon >0, \forall n\in \mathbb{N}, \exists m \leq n: |x_m-a|<\epsilon$
+\end{itemize}
+\begin{proof}
+
+$\Rightarrow$ Let $a$ be the accumulation point and let $\epsilon>0$. According to the definition above, we have an infinite subset $N_{\epsilon}\in \mathbb{N}$. Since $N_{\epsilon}$ is not upper bounded, $\forall n\in \mathbb{N}$, there exists an $m\in N_\epsilon$, with $n \leq m$. Since $N_\epsilon$ is not upper capped, $m$ is in $N_\epsilon$. Thus, by using the definition again, we have $|x_m-a|<\epsilon$
+
+$\Leftarrow$ Let $\epsilon>0$, we let $n_0:=0$ and $n_0 \leq m_0$. According to the assumptions, we have $|x_{m_0}-a|<\epsilon$. then we put $n_1:=m_0+1$, and select $n_1 \leq m_1$, so that $|x_{m_1}-a|<\epsilon$ still applies. Recursively, let's assume that $n_\ell \leq m_\ell$ is already set, and select $n_{\ell+1}:= m_\ell + 1$. Because of our assumption, we can always find an $m_{\ell+1}$ such that $|x_{m_{\ell+1}}-a|<\epsilon$. That gives us an infinite set $N_\epsilon := \{x_{m_{\ell}: \ell \in\mathbb{N}}\}$, which is the requirements in the above definition.
+\end{proof}
+\end{prop}
+
+\begin{defi}
+\label{definition_of_convergence}
+\textbf{Convergence} A sequence $(x_n)_{n\in \mathbb{N}}$ is called convergent, if there exists a $a\in \mathbb{K}$ such that $\forall \epsilon>0, \exists n_{\epsilon}\in \mathbb{N}$ such that $\forall n\geq n_{\epsilon}: |x_{n}-a|<\epsilon$. $a$ is called \textbf{limit} of the sequence $(x_n)_{n\in \mathbb{N}}$, which can be written as $ x_{n}\xrightarrow[{n\to\infty}]{}a$ or $a=\lim_{n\to\infty}x_n$. A sequence, if do not have limit, is called divergent.
+\end{defi}
+
+\begin{defi}
+\textbf{Bounded} A sequence $(x_n)_{n\in \mathbb{N}}$ is called bounded, if there exists such a $c\in \mathbb{R}_{\geq0}$ that $|x_n|\leq c, \forall n\in \mathbb{N}$.
+\end{defi}
+
+\begin{prop}
+Every convergent sequence is bounded sequence.
+\begin{proof}
+Let $a:= \lim_{n\to\infty}x_n$, there exists an $n_1\in \mathbb{N}$ such that $|x_n-a|<1, \forall n \geq n_1$. It also applies that $|x_n|=|x_n-a+a|\leq |x_n-a|+|a|<|a|+1, \forall n\geq n_{1}$ (Triangular Inequality). Then we select $c := max\{|a|+1, max\{|x_n|: n< n_1\}\}$. From that we have $|x_n|<c, \forall n\in \mathbb{N}$.
+\end{proof}
+\end{prop}
+
+\begin{defi}
+\textbf{Monotonicity} Let $M$ and $N$ totally ordered set, with the ordered relation $\preceq_{M}$ and $\preceq_{N}$. The map $\phi: M \to N$ is called as the following:
+\begin{itemize}
+    \item \textbf{monotonically increasing} if $\phi(x)\preceq_{N}\phi(y), \forall x,y \in M$ and $x\preceq_{M}y$.
+    \item \textbf{strictly monotonically increasing} if $\phi(x)\prec_{N}\phi(y), \forall x,y \in M$ and $x\prec_{M}y$.
+    \item \textbf{monotonically decreasing} if $\phi(y)\preceq_{N}\phi(x), \forall x,y \in M$ and $x\preceq_{M}y$.
+    \item \textbf{strictly monotonically decreasing} if $\phi(y)\prec_{N}\phi(x), \forall x,y \in M$ and $x\prec_{M}y$.
+\end{itemize}
+\end{defi}
+
+\begin{defi}
+\textbf{Sub-sequence} Let $(x_n)_n\in \mathbb{N}$ a sequence, and the mapping $\phi: \mathbb{N}\to \mathbb{N}$ is strictly monotonically increasing. Then we call $(x_{n_{k}})_{k\in\mathbb{N}} := (x_{\phi(k)})_{k\in\mathbb{N}}$ a sub-sequence of $(x_n)_{n\in\mathbb{N}}$. 
+\end{defi}
+
+\begin{prop}
+The following statements are equivalent:
+\begin{itemize}
+    \item $x_n \xrightarrow{n\to\infty}a$.
+    \item $x_{n_{k}} \xrightarrow{}a$ for all the subsequences $x_{n_{k}}$ of $(x_n)_{n\in\mathbb{N}}$.
+\end{itemize}
+\begin{proof}
+$\Rightarrow$ Let $(x_{n_{k}})_{k\in\mathbb{N}}$ any subsequence, and $\epsilon>0$. By definition, we have $|x_n-a|<\epsilon, \forall n \geq n_\epsilon$. Because of the monotonocity of the numbering $\phi$, we apply $\phi(k)\geq n_{\epsilon}, \forall k\geq n_\epsilon$. That follows $|x_{n_{k}}-a|<\epsilon, \forall k\geq n_{\epsilon}$. It leads to that $x_{n_{k}}$ is convergent to $a$.
+
+$\Leftarrow$ We select $\phi(n)=n, \forall n\in\mathbb{N}$. It is done.
+\end{proof}
+\end{prop}
+
+\begin{prop}
+The following statements are equivalent:
+\begin{itemize}
+    \item $a$ is the accumulation point of $(x_n)_{n\in\mathbb{N}}$
+    \item There is a subsequence $(x_{n_{k}})_{k\in\mathbb{N}}$ of $(x_n)_{n\in\mathbb{N}}$ such that $x_{n_{k}} \xrightarrow{k\to\infty} a$
+\end{itemize}
+\begin{proof}
+
+$\Rightarrow$ We can recursively construct the subsequence: let $n_0:=0$, then we choose $n_0<n_1<...<n_{k-1}$. Since $a$ is an accumulation point of $(x_n)_{n\in\mathbb{N}}$, there exists an $m>n_{k-1} + 1$ and $|x_m-a|<\frac{1}{k}$. (The reason is that we can choose $\epsilon$ to be $\frac{1}{k}$ and $n=n_{k-1}+1$, then by Proposition \ref{prop_of_accumulation_point}(2), we have the above claim). Then we define $n_k := min\{m: m>n_{k-1}$ and $|x_m-a|<\frac{1}{k}\}$. Obviously, the constructed map $k\to n_k$ is strictly monotonically increasing. Now let $\epsilon>0$, then there exists a $k_\epsilon \in \mathbb{N}$ with $\frac{1}{k_\epsilon}<\epsilon$. By constructing so, we eventually have $|x_{n_{k}}-a|<\frac{1}{k}\leq \frac{1}{k_\epsilon} < \epsilon, \forall k \geq k_\epsilon$. It suggests that $x_{n_{k}} \xrightarrow{k\to\infty}a$.
+
+$\Leftarrow$ By combining Proposition \ref{prop_of_accumulation_point}(2) and the definition of convergence(definition \ref{definition_of_convergence}).
+\end{proof}
+\end{prop}
+
+\begin{defi}
+\textbf{Zero Sequence} A sequence $(x_n)_{n\in\mathbb{N}}$ is called zero sequence, if and only if $\lim_{n\to\infty}x_n=0$.
+\end{defi}
+
+\begin{prop}
+We have the following propositions:
+\begin{itemize}
+    \item If $(x_n)_{n\in\mathbb{N}}$ is a zero sequence $\implies$ $(|x_n|)_{n\in\mathbb{N}}$ is a zero sequence.
+    \item $x_n \xrightarrow{n\to\infty}a$ $\implies$ $(x_n-a)_{n\in\mathbb{N}}$ is zero sequence.
+    \item $(x_n)_{n\in\mathbb{N}}$ is a sequence in $\mathbb{K}$ and $(r_n)_{n\in\mathbb{N}}$ is a zero sequence in $\mathbb{R}_{\geq0}$. Then we have such an $n_0\in\mathbb{N}$ and $|x_n|\leq |r_n|, \forall n \geq n_0$.
+\end{itemize}
+\end{prop}
+
+\begin{prop}
+We have the following laws for calculating limits of two convergent sequences.
+\begin{itemize}
+\item $x_n \xrightarrow{n\to\infty}a$ $\implies$ $\alpha x_n \xrightarrow{n\to\infty}\alpha a$
+\item $x_n \xrightarrow{n\to\infty}a$ and $y_n \xrightarrow{n\to\infty}b$ $\implies$ $ x_n+y_n \xrightarrow{n\to\infty}a+b $
+\item $x_n \xrightarrow{n\to\infty}0$ and $ (y_n)_{n\in\mathbb{N}} $ be any sequence $\implies$ $x_n y_n \xrightarrow{n\to\infty}0$
+\item $x_n \xrightarrow{n\to\infty}a$ and $y_n \xrightarrow{n\to\infty}b$ $\implies$ $ x_n\times y_n \xrightarrow{n\to\infty}a \times b $
+\item $x_n \xrightarrow{n\to\infty}a$ and $a \neq 0$ $\implies$ there exists an $n_0\in\mathbb{N}$ and $x_n \neq 0, \forall n \geq n_0$ and $\frac{1}{x_n} \xrightarrow{n\to\infty}\frac{1}{a}$
+\item $x_n \xrightarrow{n\to\infty}a$ $\implies$ $|x_n| \xrightarrow{n\to\infty}|a|$
+\end{itemize}
+\end{prop}
+
+\begin{prop}
+Let $(x_n)_{n\in\mathbb{N}}$ and $(y_n)_{n\in\mathbb{N}}$ two convergent sequence of $\mathbb{R}$, and if we have $a:=\lim_{n\to\infty}x_{n}$ and $b:=\lim_{n\to\infty}y_{n}$. If there are infinity many $n\in\mathbb{N}$ such that $x_n\leq y_n$. Then we have $a\leq b$.
+\end{prop}
+
+\begin{prop}
+Let $(x_n)_{n\in\mathbb{N}}$ and $(y_n)_{n\in\mathbb{N}}$ two convergent sequence of $\mathbb{R}$, and if we have $a:=\lim_{n\to\infty}x_{n}$ and $b:=\lim_{n\to\infty}y_{n}$. Let $(z_n)_{n\in\mathbb{N}}$ a third sequence in $\mathbb{R}$, then there is an $n_0\in\mathbb{N}$ with $x_n\leq z_n \leq y_n, \forall n \geq n_0$. From that, we know $(z_n)_{n\in\mathbb{N}}$ is convergent and $\lim_{n\to\infty}z_n=a$.
+\begin{proof}
+TBD
+\end{proof}
+\end{prop}
+
+\subsection{Completeness}
+
+\begin{defi}
+\textbf{Monotonicity} A sequence $(x_n)_{n\in\mathbb{N}}$ is called monotonically increasing(respectively. monotonically decreasing) if $\forall n\in\mathbb{N}$, we have $x_{n+1}\geq x_n$, ($x_{n+1}\leq x_n$, resp.).
+\end{defi}
+
+\begin{prop}
+\label{mono_sequence_is_convergent}
+Every monotonically increasing and bounded sequence (resp, decreasing) $(x_n)\n\in\mathbb{N}$ in $\mathbb{R}$ is convergent. More specifically, we have $\lim_{n\to\infty}x_n = sup\{x_n: n\in\mathbb{N}\}$. (resp. $\lim_{n\to\infty}x_n=inf\{x_n: n\in\mathbb{N}\}$).
+\begin{proof}
+
+\end{proof}
+\end{prop}
+
+\begin{defi}
+\textbf{Important Sequences} We have the following important sequences:
+\begin{itemize}
+    \item Binomial Sequence. $\forall x,y\in\mathbb{R}$ and $\forall n\in\mathbb{N}$, we have $(x+y)^n=\sum_{k=0}^{n}\binom{n}{k}x^{k}y^{n-k}$.
+    \item $\forall k\geq0$, $2^{k-1}\leq k!$.
+    \item Geometric Sequence. $\forall x \in\mathbb{R}$ and $x\neq 1$, and $\forall n\in\mathbb{N}$, we have $\sum_{k=0}^{n}x^k=\frac{1-x^{n+1}}{1-x}$.
+    \item Bernoulli Inequality. $\forall x>-1$ and $n\geq 0$, we have $(1+x)^{n}\geq 1+nx$.
+\end{itemize}
+\end{defi}
+
+\begin{defi}
+\textbf{Bolzano-Weierstrass} Every bounded sequence in $\mathbb{K}$ must have at least one accumulation point.
+\begin{proof}
+First let $\mathbb{K}=\mathbb{R}$, and $(x_k)_{k\in\mathbb{N}}$ is a bounded sequence in $\mathbb{R}$. Then there exists $A_0<B_0$ and $A_0\leq x_k\leq B_0, \forall k \in\mathbb{N}$.
+
+Starting from $A_0$ and $B_0$, we can construct two sequences $(A_n)_{n\in\mathbb{N}}$ and $(B_n)_{n\in\mathbb{N}}$ recursively. Then there are three cases:
+\begin{itemize}
+    \item \textit{Case 1}: There are infinite many $k\in\mathbb{N}$ with $x_k = \frac{1}{2}(A_n+B_n)$, then we know $c := \frac{1}{2}(A_n+B_n)$ is the accumulation point of $(x_k)_{k\in\mathbb{N}}$.
+    \item \textit{Case 2}: There are infinite many $k\in\mathbb{N}$ with $(x_k)_{k\in\mathbb{N}}$ lies in $[A_n, \frac{1}{2}(A_n+B_n))$. In this case, we let $A_{n+1}=A_{n}$ and $B_{n+1}=\frac{1}{2}(A_n+B_n)$.
+    \item \textit{Case 3}: There are infinite many $k\in\mathbb{N}$ with $(x_k)_{k\in\mathbb{N}}$ lies in $(\frac{1}{2}(A_n+B_n), B_n]$. In this case, we let $A_{n+1}=\frac{1}{2}(A_n+B_n)$ and $B_{n+1}=B_n$.
+\end{itemize}
+Then apparently, $A_n$ is monotonically increasing while $B_N$ is monotonically decreasing. Both of them are bounded as $A_n, B_n \in [A_0, B_0], \forall n\in\mathbb{N}$. By proposition \ref{mono_sequence_is_convergent}, $(A_n)_{n\in\mathbb{N}},(B_n)_{n\in\mathbb{N}}$ are convergent. Then we know $B_n-A_n\leq 2^{-n}(B_0-A_0), \forall n\in\mathbb{N}$, which indicates that $(A_n)_{n\in\mathbb{N}}, (B_n)_{n\in\mathbb{N}}$ have the same limits.
+
+With these knowledge, we let $c:=\lim_{n\to\infty}A_{n}$, and thus $c=\lim_{n\to\infty}B_{n}$. We want to prove that $c$ is an accumulation point. Let $\epsilon>0$, then there exist an $n_{\epsilon_{1}}\in\mathbb{N}$ and $n_{\epsilon_{2}}\in\mathbb{N}$ with $c-\epsilon<A_n\leq c, \forall n\geq n_{\epsilon_{1}}$, and $c+\epsilon>B_n\geq c, \forall n\geq n_{\epsilon_{2}}$. Then let $n\epsilon=max\{n_{\epsilon_{1}}, n_{\epsilon_{2}}\}$, we can construct infinite many $k\in\mathbb{N}$ such that $c-\epsilon<A_{n_{\epsilon}}<B_{n_{\epsilon}}<c+\epsilon, x_k\in[A_{n_{\epsilon}}, B_{n_{\epsilon}}]$. We know $c$ is an accumulation point.
+
+Second, if $\mathbb{K}=\mathbb{C}$ and $(x_k)_{k\in\mathbb{N}}$ is a bounded sequence in $\mathbb{C}$. We can define the following sequences: $u_k := Re(x_k)$, $v_k := Im(x_k), k\in\mathbb{N}$. We know that $|Re(z)|\leq |z|$ and $|Im(z)|\leq |z|$, therefore the two sequences $(u_k)_{k\in\mathbb{N}}$, $(v_k)_{k\in\mathbb{N}}$ are bounded. According to part $1$, we know there is an accumulation point $a\in\mathbb{R}$ of $(u_k)_{k\in\mathbb{N}}$, therefore there exists a subsequence $(u_{k_{l}})_{l\in\mathbb{N}}$ with $u_{k_{l}}\xrightarrow{l\to\infty}a$. It also applies to $(v_{k})_{k\in\mathbb{N}}$, i.e. $(v_{k})_{k\in\mathbb{N}}$ also has an accumulation point $b$, and therefore there exists a subsequence such that $(v_{k_{l_{m}}})_{m\in\mathbb{N}}$ with $b=\lim_{m\to\infty}v_{k_{l_{m}}}$. Because of the fact that $|z|\leq |Re(z)|+|Im(z)|$, we apply $|x_{k_{l_{m}}}-(a+ib)| \leq |u_{k_{l_{m}}}-a| + |v_{k_{l_{m}}}-b| \xrightarrow{m\to\infty}0$. Therefore, we know that $a+ib$ is an accumulation point of $(x_k)_k\in\mathbb{N}$.
+
+\end{proof}
+\end{defi}
+
+\begin{defi}
+\textbf{Cauchy Sequence} A sequence is called Cauchy Sequence if $\forall \epsilon>0$, there exists an $n_0\in\mathbb{N}$, such that $|x_n-x_m|\leq \epsilon, \forall n,m \geq n_0$.
+\end{defi}
+
+\begin{prop}
+There are three important properties of Cauchy Sequence.
+\begin{itemize}
+\item A convergent sequence is a Cauchy Sequence.
+    \begin{proof}
+    Let $\epsilon>0$, then there is a $n_\epsilon\in\mathbb{N}$ with $|x_n-a|<\frac{\epsilon}{2}, \forall n>n_\epsilon$, in which $a := \lim_{n\to\infty}x_n$. For $n,m \geq n_\epsilon$, we have $|x_n-x_m|=|(x_n-a) - (x_m-a)| \leq |x_n-a| + |x_m-a|<\epsilon$.
+    \end{proof}
+    \item A Cauchy Sequence is a bounded sequence.
+    \begin{proof}
+    By condition, there is a $n_1\in\mathbb{N}$ such that $|x_n-x_m|<1, \forall n,m \geq n_1$. We define $C := max\{|x_n|+1: n\leq n_1\}$, then for $n\leq n_1: |x_n|\leq C$ and for $n>n_1$:, $x_n=|x_n-x_{n_1}+x_{n_1}| \leq |x_n-x_{n_1}| + |x_{n_{1}}|< 1 + |x_{n_1}|\leq C$.
+    \end{proof}
+    \item A Cauchy Sequence in $\mathbb{K}$ is convergent.
+    \begin{proof}
+    By Bolzano-Weierstrass and the fact Cauchy sequence is bounded, we know Cauchy sequence must have at least one accumulation point. Let $\epsilon>0$, there exist $n_\epsilon\in\mathbb{N}$ with $|x_n-x_m|< \frac{\epsilon}{2}, \forall n,m \geq n_\epsilon$. Moreover, there is an $k_\epsilon\geq n_\epsilon$ with $|a-x_{k_{\epsilon}}|<\frac{\epsilon}{2}$, it follows that $|x_n-a| = |x_n-x_{k_{\epsilon}}+x_{k_{\epsilon}}-a| \leq |x_n-x_{k_{\epsilon}}| + |x_{k_{\epsilon}} - a|<\frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon, \forall n\geq n_\epsilon$. 
+    \end{proof}
+
+\end{itemize}
+\end{prop}
+
+\textit{Note}: The set of real numbers, as known as $\mathbb{R}$, can be defined by the completing rational numbers. Every element in $\mathbb{R}$ are the borders areas of Cauchy Sequence from $\mathbb{Q}$.
+
+\subsection{Improper Convergence}
+
+\begin{defi}
+\textbf{$\infty$}. we have three ways to define two symbols $-\infty$ and $+\infty$.
+\begin{itemize}
+    \item As they have the following properties: $-\infty < x < +\infty, \forall x\in\mathbb{R}$.
+    \item $sup(\emptyset):=-\infty$ and $inf(\empty):=+\infty$.
+    \item Let $M\subset \mathbb{R}$ not empty, we select $inf(M) := -\infty \Leftrightarrow$ M is not lower bounded. $sup(M):= +\infty \Leftrightarrow$ M is not upper bounded. 
+\end{itemize}
+\end{defi}
+
+\begin{defi}
+\textbf{$\limsup$ and $\liminf$} Let $(x_n)_{n\in\mathbb{R}}$, we define $\limsup_{n\to\infty}x_n := \lim_{n\to\infty}sup\{x_k, k\geq n\}$. $\liminf_{n\to\infty}x_n := \liminf_{n\to\infty}\{x_k: k\geq n\}$
+\end{defi}
+
+It is clear that we always have $\limsup_{n\to\infty}x_n \geq \liminf_{n\to\infty}x_n$ because we know $sup\{x_k:k\geq n\} \geq inf\{x_k: k\geq n\}$.
+
+\begin{prop}
+Let $(x_n)_{n\in\mathbb{N}}$ a sequence in $\mathbb{R}$. We have $\limsup_{n\to\infty}x_n$ (resp. $\liminf_{n\to\infty}x_n$) the largest (resp. smallest) accumulation point in $\overline{\mathbb{R}}$ of $x_n$. Note $\overline{\mathbb{R}}$ represents $\mathbb{R}$ with $-\infty$ and $+\infty$.
+\begin{proof}
+Let $x:= \limsup_{n\to\infty}x_n$. There are two cases:
+\begin{itemize}
+    \item \textit{Case 1}: $x=+\infty$, we can select $y_n := sup\{x_k: k\geq n\}$. and then $y_n \to x$. Then as $n$ grows, we know $y_n$ is monotonically decreasing, it follows that $y_n=+\infty, \forall n\in\mathbb{N}$. Consequently, we have $\forall R>0, \forall n\in\mathbb{N}, \exists k_n>n : x_{k_n}>R$. ($+\infty$ is the least upper bound of ${x_k: k\geq n}$). That means $+\infty$ is the accumulation point of $(x_n)_{n\in\mathbb{N}}$. Trivially, there is no larger accumulation point.
+    \item \textit{Case 2}: $x\in\mathbb{R}$, we will show that no accumulation point of $(x_n)_{n\in\mathbb{N}}$ is larger than $x$ first. Let $\epsilon>0$, then $(y_n)_{n\in\mathbb{N}}$ is monotonically decreasing. It follows that $\exists n_\epsilon\in\mathbb{N}: \forall n \geq n_\epsilon$ we have $ x\leq y_n < x + \epsilon$. $\implies$ $count\{k\in\mathbb{N}: x_k\geq x+\epsilon\}\leq n_\epsilon<+\infty$. It also applies for any accumulation point $z$ of $(x_n)_{n\in\mathbb{N}}$: $z<x+\epsilon$. From that, we know $z\leq x$ for any $\epsilon>0$. 
+    
+    We show that $x$ is an accumulation point of $(x_n)_{n\in\mathbb{N}}$ then. $\forall\epsilon \exists n_\epsilon$ such that $\forall n \geq n_\epsilon$, we have $x\leq y_n < x+\epsilon$ (because $x_k<y_n$ and $y_n$ is the least upper bound of $\{x_k: k\geq n\}$).
+    
+    Thus, $x$ is also an accumulation point of $(x_n)_{n\in\mathbb{N}}$.
+    \item \textit{Case 3}: If $x=-\infty$. We can select $R\in\mathbb{R}_{\geq0}$. Then it follows that $\exists n_R\in\mathbb{N}: \forall n\geq n_R: y_n < -R$. It suggests that $count\{k\in\mathbb{N}: x_k\geq -R\}\leq n_R < \infty$. Since $R$ is any, any accumulation point $z$ of $(x_n)$ should be $z=-\infty$. Furthermore, we know $\forall R\in\mathbb{R}_{\geq0}, \exists n_R\in\mathbb{N}$ such that $\forall n \geq n_R$: we have $y_n<-R$. It implies that $\forall R\in\mathbb{R}_{\geq0}, \forall n\in\mathbb{N}$, $\exists k\geq n: x_k\leq y_n < -R$.
+\end{itemize}
+The proof for $\liminf_{n\to\infty}x_n$ is similar.
+\end{proof}
+\end{prop}
+
+\section{Series}
+\begin{defi}
+\textbf{Series} Let $(x_n)_{n\in\mathbb{N}}$ a sequence in $\mathbb{K}$. We define the $n$-th partial sum $s_n$ as $s_n := \sum_{k=0}^{n}x_k$. The sequence $(s_n)_{n\in\mathbb{N}}$ is called series and we use the following symbol to represent: $\sum x_k$. The series is called convergent (resp. divergent) if the sequence $(s_n)_{n\in\mathbb{N}}$ is convergent (resp. divergent). If $s_n \xrightarrow{n\to\infty}s\in\mathbb{K}$ is convergent, it is written as $s=\sum_{n=0}^{\infty}x_n$.
+\end{defi}
+
+One important thing here is the criteria of convergence. It will be written in another post.
+
+\begin{defi}
+\textbf{Absolute Convergence} A series $\sum x_n$ is called absolute convergent, if the series $\sum|x_n|$ is convergent. 
+\end{defi}
+
+\begin{prop}
+An absolute convergent series is convergent.
+\begin{proof}
+    Let $\sum x_n$ an absolute convergent series and any $\epsilon>0$. Then $\sum |x_n|$ fulfils Cauchy-Criteria: $\exists n_\epsilon\in\mathbb{N}$ such that $\sum_{k=m+1}^{n}|x_k|<\epsilon, \forall n>m\geq n_\epsilon$. By triangle inequality, we know $|\sum_{k=m+1}^{n}x_k| \leq \sum_{k=m+1}^{n}|x_k|<\epsilon$. Since $\sum x_k$ fulfils Cauchy Criteria, it is therefore convergent. 
+\end{proof}
+\end{prop}
+
+\begin{defi}
+\textbf{Power Series} Let $(a_n)_{n\in\mathbb{N}}$ a sequence in $\mathbb{K}$ and $z_0\in\mathbb{K}$. Then $\sum a_n(z-z_0)^n$ is called a power series for all $z\in\mathbb{C}$ with two coefficients: $a_0$ and the expansion point $z_0$.
+\end{defi}
+
+\begin{prop}
+Given power series $\sum a_n(z-z_0)^{n}$, we can get $\rho := \frac{1}{\limsup_{n\to\infty \sqrt[n]{|a_n|}}}\in[0,\infty]$. Then we have the following properties:
+\begin{itemize}
+    \item The power series is absolute convergent for $z\in\mathbb{K}$ with $|z-z_0|<\rho$.
+    \item The power series is divergent for all $z\in\mathbb{K}$ if $|z-z_0|>\rho$.
+\end{itemize}
+\begin{proof}
+We use the root criteria. $\limsup_{n\to\infty}\sqrt[n]{|a_n(z-z_0)^n|}=|z-z_0|\limsup_{n\to\infty}\sqrt[n]{|a_n|}=\frac{|z-z_0|}{\rho}$.
+
+It indicates that the power series is convergent for $|z-z_0|<\rho$.
+\end{proof}
+\end{prop}
+
+\begin{defi}
+\textbf{Convergent Radius and Interval} $\rho$ is called convergent radius of the power series. and the set $\{z\in\mathbb{K}: |z-z_0|<\rho\}$ is called convergent interval of the power series.
+\end{defi}
+
+\begin{prop}
+Let $\sum a_n (z-z_0)^n$ a power series and we define $\alpha := \lim_{n\to\infty}\frac{|a_n|}{|a_{n+1}|}$ in $\overline{\mathbb{R}}$. Then we have $\rho=\alpha$.
+\begin{proof}
+We use quotient criteria.
+
+$$|\frac{a_{n+1}(z-z_0)^{n+1}}{a_n(z-z_0)^{n}}| = |z-z_0|\times |\frac{a_{n+1}}{a_n}|\xrightarrow{n\to\infty} \frac{|z-z_0|}{\alpha}$$.
+
+It follows that if the power series for $|z-z_0|<\alpha$ is convergent, then $\rho\geq \alpha$. If the power series for $|z-z_0|>\alpha$ is not convergent (By quotient criteria), then $\rho\leq \alpha$ ($\rho>\alpha$ cannot apply). It means $\rho=\alpha$. 
+\end{proof}
+\end{prop}
+
+\begin{prop}
+Let $\alpha\in\mathbb{K}$ and $\sum a_n (z-z_0)^n$, $\sum b_n (z-z_0)^n$ two power series with the same expansion point $z_0$ and different convergent radius $\rho_1$ and $\rho_2$. Then we have the following properties:
+\begin{itemize}
+    \item $\sum_{n=0}^{\infty}\alpha a_n(z-z_0)^n$ =  $\alpha\sum_{n=0}^{\infty} a_n(z-z_0)^n$
+    \item $\sum_{n=0}^{\infty}(a_n+b_n)(z-z_0)^n$ = $\sum_{n=0}^{\infty} a_n(z-z_0)^n + \sum_{n=0}^{\infty} b_n(z-z_0)^n$, $\forall |z-z_0|<min\{\rho_1, \rho_2\}$.
+    \item $\sum_{n=0}^{\infty}(\sum_{k=0}^{n}a_k b_{n-k})(z-z_0)^{n} = (\sum_{n=0}^{\infty} a_n(z-z_0)^n) \times (\sum_{n=0}^{\infty} b_n(z-z_0)^n )$
+\end{itemize}
+\end{prop}
+
+\section{Continuous Function}
+
+\subsection{Norm Vector Space}
+\begin{defi}
+\textbf{Vector Space} A set X is called $\mathbb{K}-$vector space, if there it is equipped with two maps: 
+\begin{itemize}
+    \item $+$: $X\times X \to X$: Addition is closed.
+    \item $\ast$: $\mathbb{K}\times X\to X$: Scalar multiplication is closed.
+\end{itemize}
+Besides, it should abide three conditions:
+\begin{itemize}
+    \item $(X,+)$ is an abelian group, with an neutral element $0$.
+    \item $\forall \alpha, \beta\in\mathbb{K}$ and $\forall x,y \in X$, we have: $\alpha \ast (x+y)=\alpha\ast x + \alpha\ast y$, $(\alpha+\beta)\ast x = \alpha x + \beta x$ and $\alpha \ast (\beta \ast x)=(\alpha\beta)\ast x$.
+    \item $1\ast x=x$.
+\end{itemize}
+\end{defi}
+\begin{defi}
+Let $X$ be an $K-$vector space, a map $||\cdot||: X\to\mathbb{R}$ is called a norm, if:
+\begin{itemize}
+    \item $||x||\geq 0, \forall x\in\ X$. $||x||=0 \Leftrightarrow x=0$.
+    \item $||\alpha x||=|\alpha|||x||, \forall x\in X, \alpha \in\mathbb{K}$.
+    \item $||x+y||\leq ||x|| + ||y||, \forall x,y \in X$ (Triangle Inequality).
+    \item Note that from (3), we can also get the reverse form: $|||x|| - ||y||| \leq ||x-y||, \forall x,y \in X$
+    \begin{proof}
+    $||x|| = ||y+(x-y)|| \leq ||y|| + ||x-y|| \implies ||x||-||y|| \leq ||x-y||$.
+    Similarly, $||y||-||x|| \leq ||x-y||$. Therefore we have $|||x||-||y||| = max\{||x||-||y||, ||y||-||x||\}\leq ||x-y||$.
+    \end{proof}
+\end{itemize}
+\end{defi}
+We call $(X, ||\cdot||)$ an norm vector space.
+\begin{defi}
+For $x_0\in X$ and $r\in\mathbb{R}_{>0}$, we call $B(x_0,r):=\{x\in X: ||x-x_0||<r\}$  the open ball around $x_0$ with the radius $r$. $B(0,1)$ is called the unit ball.
+\end{defi}
+\textit{Note:} In a norm vector space, the concepts, such as convergent sequence, accumulation point, cauchy sequence and series can be defined similarly. We just need to replace the amount $|\cdot|$ into the normed distance $||\cdot||$. For example: 
+\begin{defi}
+\textbf{Normed Convergence} Let $(x_n)_{n\in\mathbb{N}}\subset X$ a sequence in which all elements $x_n\in X$. Then the sequence is convergent if and only if: $\forall\epsilon >0 \exists n_\epsilon\in\mathbb{N}$ such that $\forall n\geq n_\epsilon$, we have $||x-x_n||< \epsilon$.
+\end{defi}
+\begin{defi}
+\textbf{Normed Cauchy Sequence} $(x_n)_{n\in\mathbb{N}}$ is a cauchy sequence if and only if $\forall \epsilon>0, \exists n_\epsilon\in\mathbb{N}$ such that $\forall n, m\geq n_\epsilon$: we have $||x_n-x_m||<\epsilon$.
+
+\end{defi}
+\begin{defi}
+\textbf{Equivalent Norms}Let $X$ be an $K-$vector space and $||\cdot||_a$, $||\cdot||_b$ two norms of $X$. Then they are equivalent if and only if there are two positive constants $\underline{c}$ and $\overline{c}$ such that $\underline{c}||x||_a \leq ||x||_b \leq \overline{c}||x||_a$.
+\end{defi}
+
+\begin{prop}
+Let $n\in\mathbb{N}$, then all norms are equivalent of $\mathbb{K}^n$.
+\begin{proof}
+TBD.
+\end{proof}
+\end{prop}
+\textit{Note:} Not that the above proposition only applies for infinite dimensional vector space. In general, it cannot be applied directly. For example, the norms $||\cdot||_{\infty
+}$ and $||\cdot||_1$ of $\ell_1$ are not equivalent.
+\begin{proof}
+We assume there exists such an $\overline{c}>0$ such that $||x||_1 \leq \overline{c}||x||_{\infty}, \forall x\in\ell_{1}$.
+Let $m\in\mathbb{N}, m>\overline{c}$. We select $x\in\ell_{1}$ such that $x_i := 1$ if $0\leq i\leq m$, otherwise $x_i := 0$. Then we have $||x||_1=m+1$ but $||x||_\infty=1$, which contradicts to our assumption.
+\end{proof}
+\textit{Note:} In $\mathbb{K}$, the two statement are equivalent:
+\begin{itemize}
+    \item $(x_n)$ is convergent.
+    \item $(x_n)$ is cauchy sequence.
+\end{itemize}
+\begin{defi}
+\textbf{Banach Space} A normed $K-$vector space $(X, ||\cdot||)$ is called complete or Banach Space if all cauchy sequence in $X$ is convergent.
+\end{defi}
+\section{Topology}
+\begin{defi}
+\textbf{Some Basic Concepts}
+\begin{itemize}
+    \item \textbf{Inner Point} Let $\emptyset \neq M \subset X$. A point $x\in M$ is called an inner point of $M$, if there exists an $\epsilon>0$ such that $B(x,\epsilon)\subset M$.
+    \item \textbf{Openness} $M\subset X$ is called open if all $x\in M$ are inner points.
+    \item \textbf{Surroundings} Let $x\in X$ and $U \subset X$ open with $x\in U$, then we call U as surroundings of $x$. The set of all surroundings form $\mathcal{U}(x)$.
+\end{itemize}
+\end{defi}
+\textit{Note:} 
+\begin{itemize}
+    \item The term ``Open" is only for vector space. For example, $(0,1)$ is open in $\mathbb{R}$, but $(0,1)\times {0}$ is not open in $\mathbb{R}^2$.
+    \item Let $||\cdot||_a$, $||\cdot||_b$ two equivalent norms, then the open set of $||\cdot||_a$ is also open of $||\cdot||_b$ and vice versa. But in general, we only know $B(x,r)_{||\cdot||_a} \neq B(x,r)_{||\cdot||_b}$.
+\end{itemize}
+\begin{prop}
+Let $\mathcal{O}\subset\mathcal{P}(x)$, i.e. the subset of power set of $X$, a set of all open subset of $X$. Then we have:
+\begin{itemize}
+    \item $\emptyset \in\mathcal{O}$, $X\in\mathcal{O}$.
+    \item $\mathcal{O}_{\alpha}, \alpha \in A$, $A$ is any index set, then $\bigcup_{\alpha\in A}\mathcal{O}_{\alpha}\in\mathcal{O}$. (i.e. any unions of open sets are still open).
+    \item $\mathcal{O}_1, \mathcal{O}_2 \in \mathcal{O}$, then $\mathcal{O}_1 \cap \mathcal{O}_2\in\mathcal{O}$. (i.e. finite intersection of open sets are still open).
+\end{itemize}
+\end{prop}
+\begin{defi}
+\textbf{Topology} Let $X\neq \emptyset$ any set and $\mathcal{T}\subset \mathcal{P}(X)$ a set with the above properties. Then we call $\mathcal{T}$ a topology of $X$ and $(X,\mathcal{T})$ a topological space. Many of the properties that we have proven for normed vector spaces generally apply to topological spaces.
+\end{defi}
+\textit{Notes:} The countable intersection of open sets are generally not open. Single point subset are not open.
+\begin{defi}
+$M\subset X$ is called to be dense, if and only if when $M^C = X \texttt{\textbackslash} M$ is open.
+\end{defi}
+\begin{prop}
+We have the following statements:
+\begin{itemize}
+    \item $\emptyset, X$ are dense.
+    \item Any intersection of dense sets are dense.
+    \item Infinite union of dense sets are still dense.
+\end{itemize}
+\begin{proof}
+TBD.
+\end{proof}
+\end{prop}
+\textit{Note:} Any union of dense sets are generally not dense.
+\begin{defi}
+\textbf{Border Point and Accumulation Point}Let $M\subset X$, a point $x \in X$ is called Border point (resp. limit point) of $M$, if for any $U\subset \mathcal{U}(x)$, we have $U \cap M \neq \emptyset$ (resp. $M \cap U \texttt{\textbackslash} \{x\}\neq \emptyset$).
+
+We define $\overline{M} := \{x\in X: x $ is border point of $M\}$.
+\end{defi}
+\begin{prop}
+We have the following properties:
+\begin{itemize}
+    \item $M \subset \overline{M}$.
+    \item $M=\overline{M}$, if and only if $M$ is dense.
+\end{itemize}
+\end{prop}
+\begin{prop}
+We have the following properties:
+\begin{itemize}
+    \item $x$ is the accumulation point, if and only if the sequence $(x_n)_n\in\mathbb{N}\subset M$, with $x_n\neq x, \forall n\in\mathbb{N}$ and $x_n\xrightarrow{n\to\infty}x$.
+    \item $x$ is the border point if and only if the sequence $(x_n)_n\in\mathbb{N}\subset M$ and $x_n\xrightarrow{n\to\infty}x$.
+\end{itemize}
+\end{prop}
+\begin{prop}
+The following statements are equivalent:
+\begin{itemize}
+    \item $M \subset X$ is complete.
+    \item $M$ contains all accumulation point.
+    \item Every convergent sequence $(x_n)_{n\in\mathbb{N}}\subset M$ in $X$, we have $\lim_{n\to\infty}x_n\in M$.
+\end{itemize}
+\end{prop}
+\begin{prop}
+$\overline{M}$ is the smallest dense super set of $M$, i.e. $\overline{M}=\bigcap\{A: A\supset M$, A is dense$\}$.
+\end{prop}
+\begin{prop}
+We have the following statements:
+\begin{itemize}
+    \item $A \subset B \implies \overline{A}\subset \overline{B}$.
+    \item $\overline{(\overline{A})}=\overline{A}$.
+    \item $\overline{A\cup B}=\overline{A}\cup \overline{B}$
+\end{itemize}
+\begin{proof}
+TBD.
+\end{proof}
+\end{prop}
+\begin{defi}
+\textbf{Set of Inner Point}: For $M\subset X$, we define $\overset{\circ}{M}:= \{x\in X: x$ is an inner point of  $M\}$.
+\end{defi}
+\begin{prop}
+We have the following statements:
+\begin{itemize}
+    \item $\overset{\circ}{M}\subset M$.
+    \item $\overset{\circ}{M}=M\Leftrightarrow M$ if and only if M is open. 
+\end{itemize}
+\end{prop}
+\begin{prop}
+Similarly, we have $\overset{\circ}{M}$ is the largest open subset of $M$, i.e. $\overset{\circ}{M}=\bigcup \{O:O\subset M, O $ is open$\}$.
+\end{prop}
+\begin{prop}
+We have the following properties:
+\begin{itemize}
+    \item $A \subset B \implies \overset{\circ}{A}\subset \overset{\circ}{B}$.
+    \item $\overset{\circ}{(\overset{\circ}{A})} = \overset{\circ}{A}$.
+    \item $\overset{\circ}{(A\cap B)}=\overset{\circ}{A}\cap \overset{\circ}{B}$.
+\end{itemize}
+\end{prop}
+\begin{defi}
+\textbf{Edge Set} The edge set $\partial M$ is defined as: $\partial M:= \overline{M} \texttt{\textbackslash}\overset{\circ}{M}$.
+\end{defi}
+\begin{prop}
+Let $x,y\in X$ and $x\neq y$. Then we have two neighbors sets $U_x\in \mathcal{U}(x)$ and $U_y\in\mathcal{U}(y)$ with the following: $U_x\cap U_y = \emptyset$.
+\end{prop}
+\begin{prop}
+Let $x\in X$, then $\{x\}$ is complete.
+\end{prop}
+\begin{defi}
+\textbf{Relative Topology} Let $M\subset X$, $M \neq \emptyset$. Then the relative topology of $M$ is defined as $\mathcal{T}_M := \{U\cap M:$ M is open in $X\}$. $A \subset M$ is named \textbf{relative open} in $M$ if $A \in \mathcal{T}_M$. A point $x\in A$ is called \textbf{relative inner point} of $A$ if $U\in\mathcal{T}_M$ exists and $x\in U\subset A$. $A\subset M$ is called relatively dense in $M$ if $A\in\{B\cap M: B$ is dense in $X\}$.
+
+Apparently, $A\subset M$ is relative open (or relative dense) if an open (dense) set $B\subset X$ exists and $A=B\cap M$.
+\end{defi}
+\section{Continuity}
+Let $(X, ||\cdot||_X)$, $(Y, ||\cdot||_Y)$, and $(Z, ||\cdot||_Z)$ three normed vector spaces.
+\begin{defi}
+\textbf{Continuous Function} Let $D\subset X$ not empty, and $f: D\to Y$ a function. Then $f$ is called continuous in $x_0\in D$, if for every $V\in \mathcal{U}(f(x_0))$, there is a $U\in \mathcal{U}(x_0)$ with $f(U\cap D)\subset V$.
+
+$f$ is called continuous in $D' \subset D, D' \neq \emptyset$, if $f$ is continuous in every point $x\in D'$. In particular, if f is continuous in $D$, then we can say $f$ is continuous. 
+\end{defi}
+\begin{prop}
+Let $f: D\to Y, D\subset X$, a function and $x_0 \in D$. Then the following statements are equivalent:
+\begin{itemize}
+    \item $f$ is continuous in $x_0$.
+    \item $\forall \epsilon>0, \exists\delta>0:$: $x\in D, ||x-x_0||_X <\delta \implies ||f(x)-f(x_0)||_Y<\epsilon$.
+    \item $\forall (x_n)_n\in\mathbb{N}\in D$ and $\lim_{n\to\infty}x_n=x_0$, we have $\lim_{n\to\infty}f(x_n) = f(x_0)$.
+\end{itemize}
+\end{prop}
+\begin{prop}
+Let $f: D\to Y$ and $D\subset X$ and $\emptyset \neq D'\subset D$. Then the following statements are equivalent:
+\begin{itemize}
+    \item $f$ is continuous on $D'$.
+    \item The pre image of open sets in $Y$ are relative open in $D'$, i.e. for any open subset $V\subset Y$: $f^{-1}(V):=\{x\in D: f(x)\in V\}$, we have the following property: $D'\cap f^{-1}(V)$ is relative open in $D'$.
+    \item The pre image of dense set in $Y$ are relative dense in $D'$, i.e. for any dense subset $A\subset Y$, we have $D'\cap f^{-1}(A)$ is relative dense in $D'$.
+\end{itemize}
+\end{prop}
+\begin{prop}
+Let $D_f$, $D_g \in X$, $x_0\in D_f \cap D_g$ and $f: D_f \to Y, g: D_g \to Y$ in $x_0$ are continuous. Let $\alpha \in \mathbb{K}$, then we have:
+\begin{itemize}
+    \item $\alpha f: x\mapsto \alpha \cdot f(x)$ is continuous in $x_0$.
+    \item $f+g: x\mapsto f(x)+g(x)$ is continuous in $x_0$.
+    \item $Y=\mathbb{K}, f\cdot g: x\mapsto f(x)\cdot g(x)$ is continuous in $x_0$.
+    \item $Y=\mathbb{K}$ and $g(x_0)\neq 0$. Then we have $\frac{f}{g}: x\mapsto \frac{f(x)}{g(x)}$ is continuous in $x_0$.
+\end{itemize}
+\end{prop}
+\begin{defi}
+\textbf{Vector space of all continuous function} Let $M\subset X, M\neq \emptyset$, then we call $C(M,Y)$ the vector space of all continuous functions of $M$ in $Y$. 
+the set of all continuous function $f: M\to Y$, i.e. $C(M,Y)$ forms a vector space.
+\end{defi}
+\begin{prop}
+All polynomial functions (i.e. the functions with the form $f(x)=\sum_{k=0}^{n}a_kx^k, a_k\in\mathbb{K}, n\in\mathbb{N}$) and all rational functions (i.e. the functions with the form $f(x) = \frac{p(x)}{q(x)} p,q$ are polynomial functions) are continuous on their definition domain.
+\end{prop}
+\begin{prop}
+Let $f: D_f \to Y, D_f \subset X$ and $g: D_g \to Z, D_g \subset Y$ two functions, and $f(D_f)\subset D_g$. Then the composition function $g\circ f: D_f \to Z$ is defined as $(g\circ f)(x) := g(f(x))$. If $f$ in $x_0\in D_f$ and $g$ in $f(x_0)=y_0$ are continuous, then $g\circ f$ in $x_0$ is continuous.
+\end{prop}
+\begin{prop}
+We have the following statements:
+\begin{itemize}
+    \item $f=(f_1, f_2, ...f_n): D\to\mathbb{K}^n, D\subset X$ is continuous in $x_0\in D$ if and only if all the component function $f_i, 1\leq i \leq n$ is continuous in $x_0$.
+    \item $f:D\to\mathbb{C}$ in $x_0 \in D$ is continuous if and only if $Re(f)$ and $Im(f)$ in $x_0$ are continuous.
+\end{itemize}
+\end{prop}
+\begin{defi}
+\textbf{Function Limit} Let $f: D\to Y, D\subset X$ a function. Let $x_0\in X$, then there is a sequence $(x_n)\subset D$ with $\lim_{n\to\infty}x_n=x_0$. Then we define $y:= \lim_{x\to x_0}f(x)$, if for every sequence $(x_n)\subset D$ and $x_n \to x_0$ for $n\to\infty$, we have $f(x_n)\xrightarrow{n\to\infty}y$.
+\end{defi}
+\begin{prop}
+The following statements are equivalent:
+\begin{itemize}
+    \item $y=\lim_{x\to x_0}f(x)$
+    \item $\forall V \in\mathcal{U}(y): \exists U\in \mathcal{U}(x_0): f(D\cap U)\subset V$.
+\end{itemize}
+\end{prop}
+\begin{defi}
+\textbf{Left Continuous and Right Continuous}. Let function $f: D\to \mathbb{R}, D\subset \mathbb{R}$ is called left continuous (resp. right continuous) in $x_0\in D$ if for every $V\in\mathcal{U}(f(x_0))$, there is a $\delta>0$ such that $f(D\cap (x_0-\delta, x_0]\subset V)$, (resp. $f(D\cap [x_0, x_0+\delta))\subset V$).
+\end{defi}
+\begin{prop}
+The function $f: D\to\mathbb{R}, D\subset R$ is continuous in $x_0\in D$ if and only if it is left continuous and right continuous.
+\end{prop}
+\begin{prop}
+Let $f: D\to Y, D\subset X$ a function and $D' \subset D$. Then we call $f$ is uniformly continuous on $D'$ if for all $\epsilon>0, \exists \delta>0$ such that $||f(x)-f(y)||_y<\epsilon, \forall x,y \in D'$ with $||x-y||_X<\delta$.
+\end{prop}
+\textit{Note:} A uniformly continuous function is also continuous.
+\section{Function in $\mathbb{R}$}
+\begin{defi}
+\textbf{Monotonicity}: A function $f: I \to \mathbb{R}$ is
+\begin{itemize}
+    \item Monotonically increasing, if $\forall x,y \in I, x<y  $ we have $f(x)\leq f(y)$.
+    \item Monotonically decreasing, if $\forall x,y \in I, x<y  $ we have $f(x)\geq f(y)$.
+    \item Strictly monotonically increasing, if $\forall x,y \in I, x<y  $ we have $f(x)<f(y)$.
+    \item Strictly monotonically decreasing, if $\forall x,y \in I, x<y  $ we have $f(x)>f(y)$.
+\end{itemize}
+\end{defi}
+\begin{prop}
+Let $f: I\to\mathbb{R}$ monotical, and $\alpha := inf(I)$, $\beta:=sup(I)$, and $\alpha, \beta \in \overline{\mathbb{R}}$. Then in $\overline{\mathbb{R}}$, there exists the following limits:
+\begin{itemize}
+    \item $f(\alpha+0):= \lim_{x\to \alpha+0}f(x):= \lim_{x\to \alpha, x>\alpha} f(x)$.
+    \item $f(\beta-0):\lim_{x\to\beta-0}:= \lim_{x\to\beta, x<\beta}f(x)$.
+\end{itemize}
+Then we knoe:
+\begin{itemize}
+    \item $f(\alpha+0)=inf\{f(x): x\in I \texttt{\textbackslash}\{\alpha\}\}$, if $f$ is monotonically increasing.
+    \item $f(\alpha+0)=sup\{f(x): x\in I \texttt{\textbackslash}\{\alpha\}\}$, if $f$ is monotonically decreasing.
+    \item $f(\beta-0)=sup\{f(x): x\in I \texttt{\textbackslash}\{\beta\}\}$, if $f$ is monotonically increasing.
+    \item $f(\beta-0)=inf\{f(x): x\in I \texttt{\textbackslash}\{\beta\}\}$, if $f$ is monotonically decreasing.
+\end{itemize}
+\end{prop}
+\begin{defi}
+Let $D\subset \mathbb{R}, D\neq \emptyset$, $Y$ a normed vector space. $f: D\to Y$ has a point $x_0\in \mathbb{R}$ with $x_0\in \overline{D\ap (-\infty, x_0)}\cap \overline{D\cap(x_0, \infty)}$ a jump point, then the two limits $\lim_{x\to x_0 \pm 0}f(x)= f(x_0\pm 0)$ exist but are different.
+\end{defi}
+\begin{prop}
+Let $f: I\to\mathbb{R}$ monotonical, then $f$ is continuous except countable jump points.
+\end{prop}
+\begin{prop}
+\textbf{Intermediate Value Theorem} Let $f:[a,b]\to \mathbb{R}$ a continuous function and $f(a)<0<f(b)$, then there is a point $\xi\in (a,b)$ such that $f(\xi)=0$.
+\end{prop}
+\begin{prop}
+Let $f: I \to \mathbb{R}$ a continuous and strictly monotonically increasing (resp. decreasing) function. Then $f(I)$ is an interval of the same type (as $I$) and $f$ forms $I$ bijective on $f(I)$, However, the reverse image $f^{-1}: f(I)\to I$ is continuous and strictly monotonically increasing (decreasing). 
+\end{prop}
+\subsection{Exponential Function}
+\begin{defi}
+\textbf{Exponential Function, Cosine Function, Sine Function} They are defined as (from $\mathbb{C}$ to $\mathbb{C}$):
+\begin{itemize}
+    \item $exp(z) := e^z := \sum_{n=0}^{\infty}\frac{z^n}{n!}$.
+    \item $cos(z) := \sum_{n=0}^{\infty}(-1)^{n}\frac{z^{2n}}{(2n)!}$
+    \item $cos(z) := \sum_{n=0}^{\infty}(-1)^{n}\frac{z^{2n+1}}{(2n+1)!}$
+\end{itemize}
+\end{defi}
+\begin{prop}
+We have the following properties:
+\begin{itemize}
+    \item The convergent radius of above power series are all $+\infty$.
+    \item exponential, cosine, sine are real-valued on $\mathbb{R}$.
+    \item $e^{z_1+z_2}=e^{z_1}+e^{z_2}$.
+    \item $\forall z \in \mathbb{C}, e^z \neq 0$, $e^{-z}=\frac{1}{e^z}$.
+    \item $e^{iz}=cos(z)+isin(z)$.
+    \item $cosine$ is an even function, i.e. $cos(-z)=cos(z), \forall z\in\mathbb{C}$. $sine$ is an odd function, i.e $sin(-z)=-sin(z), \forall z\in\mathbb{C}$.
+    \item $cos(z)=\frac{1}{2}(e^{iz}+e^{-iz})$, $sin(z)=\frac{1}{2i}(e^{iz}-e^{-iz})$, $\forall z\in\mathbb{C}$.
+    \item $cos(x)=Re(e^{ix}), sin(x)=Im(e^{ix}), \forall x\in\mathbb{R}$.
+    \item exponential, sine, cosine are all continuous.
+\end{itemize}
+\end{prop}
+\begin{prop}
+\textbf{Additional Theorem} For all $z,w\in\mathbb{C}$, we have:
+\begin{itemize}
+    \item $cos(z\pm w)=cos(z)cos(w)\mp sin(z)sin(w)$.
+    $sin(z\pm w) = sin(z)cos(w)\pm cos(z)sin(w)$.
+    \item $sin(z)-sin(w)=2\times cos(\frac{z+w}{2})sin(\frac{z-w}{2})$. $cos(z)=cos(w)=-2\times sin(\frac{z+w}{2})sin(\frac{z-w}{2})$.
+    \item $cos^{2}(z)+sin^{2}(z)=1$
+\end{itemize}
+\end{prop}
+\begin{prop}
+We have the following statements:
+\begin{itemize}
+    \item $0<e^x<1, \forall x<0$; $e^x>1, \forall x>0; e^0=1$.
+    \item $exp: \mathbb{R}\to\mathbb{R}_{>0}$ is strictly monotonically increasing.
+    \item $\lim_{x\to\infty}x^{-n}e^{x}=\infty, \forall n\in\mathbb{N}$. $\lim_{x\to-\infty}e^x=0$.
+\end{itemize}
+\end{prop}
+\begin{defi}
+\textbf{Logarithm Function} The reverse function of real-valued exponential function is called (natural) logarithm function and is written as $\ln$.
+\end{defi}
+\begin{defi}
+For $a>0$ and $x\in\mathbb{R}$, we have $a^{x}:=e^{x\ln a}$.
+\end{defi}
+\begin{prop}
+For $\alpha \in \mathbb{R}_{>0}$, we have $\lim_{x\to\infty}x^{-\alpha}\ln(x)=0$ and $\lim_{x\to +0}x^{\alpha}\ln(x)=0$
+\end{prop}
+\begin{prop}
+Let $ixp: \mathbb{R}\to\mathbb{C}; ixp(x) := e^{ix}$, then $ixp(\mathbb{R})=S^{1} := \{z\in\mathbb{C}:|z|=1\}$.
+\end{prop}
+\begin{prop}
+The set $M:={x\in\mathbb{R}_{>0}:ixp(x)=1}$ has a positive minimum, we define $\pi := \frac{1}{2}min(M)$.
+\end{prop}
+\begin{prop}
+We have the following statements:
+\begin{itemize}
+    \item $e^z=1 \Leftrightarrow z\in 2\pi i\mathbb{Z}$, i.e. $z=2\pi i \cdot k, k\in\mathbb{Z}$.
+    \item $e^z=-1 \Leftrightarrow z\in\pi i + 2\pi i\mathbb{Z}$, i.e. $z=(2k+1)\pi i, k\in\mathbb{Z}$.
+\end{itemize}
+\end{prop}
+\begin{prop}
+For all $a\in\mathbb{R}$, the function $ixp: [a, a+2\pi) \to S^{1}$ is bijective.
+\end{prop}
+\begin{prop}
+For $cos$ and $sin$, we have the following properties:
+\begin{itemize}
+    \item $cos(z+2k\pi)=cos(z)$: cosine is $2\pi$-period. $sin(z+2k\pi)=sin(z)$: sine is $2\pi$-perid.
+    \item $sin(x)>0, \forall x\in(0,\pi)$, $sin(x)$ is strictly monotonically increasing in $[0, \frac{\pi}{2}]$.
+    \item $cos(z+\pi)=-cos(z)$, $sin(z+\pi)=-sin(z), \forall z\in\mathbb{C}$.
+    \item $cos(z)=0 \Leftrightarrow z=\frac{\pi}{2}+k\pi, k\in\mathbb{Z}$, $sin(z)=0 \Leftrightarrow z=k\pi, k\in\mathbb{Z}$.
+    \item $sin(\frac{\pi}{2}-z)=cos(z)$, $cos(\frac{\pi}{2}-z)=sinc(z), \forall z\in\mathbb{C}$.
+    \item $cos(\mathbb{R})=sin(\mathbb{R})=[-1,1]$.
+\end{itemize}
+\end{prop}
+\begin{prop}
+For all $a\in\mathbb{R}$, we have $exp: \mathbb{R}+i[a,a+2\pi) \to \mathbb{C}\texttt{\textbackslash}\{0\}$ is bijective.
+\end{prop}
+\begin{prop}
+For all $z\in\mathbb{C}\texttt{\textbackslash}\{0\}$ there exist only one $\alpha\in[0,2\pi)$ with $z=|z|e^{i\alpha}$. $\alpha$ is called argument of $z$: $\alpha:=arg(z)$.
+\end{prop}
+\begin{prop}
+For all $a\in\mathbb{C}\texttt{\textbackslash}\{0\}$, the equation $z^n=a$ has exactly $n$ different solutions: $z_k=|a|^{\frac{1}{n}}e^{\frac{i(arg(a)+2\pi k)}{n}}$.
+\end{prop}
+\section{Differential Calculation}
+\subsection{Differentiability}
+\begin{defi}
+The function $f:M\to Y$ is called differentiable at point $x_0\in M$, if the limit $\lim_{x\to x_0}\frac{f(x)-f(x_0)}{x-x_0}$ in $Y$ exists. If $f$ is differentiable at point $x_0$, we write it as: $f'(x_0):=Df(x_0) := \frac{df}{dx}(x_0) := \lim_{x\to x_0}\frac{f(x)-f(x_0)}{x-x_0} := \lim_{h\to 0}\frac{f(x_0+h)-f(x_0)}{h}$, and we call it the derivative of $f$ in $x_0$.
+\end{defi}
+\begin{prop}
+The following statements are equivalent:
+\begin{itemize}
+    \item $f$ is differentiable in $x_0$.
+    \item There exists a $c\in Y$ such that $\lim_{x\to x_0}\frac{f(x)-f(x_0)-c\cdot (x-x_0)}{x-x_0}=0$.
+    \item There exists a $c\in Y$, and a map $r: M\to Y$, that are continuous in $x_0$ and $r(x_0)=0$, so that we have $f(x)=f(x_0)+c(x-x_0)+r(x)(x-x_0), \forall x\in M$.
+\end{itemize}
+\end{prop}
+\textit{Note:} In case $2$, $3$, $c$ is the derivative of $f$ in $x_0$.
+\end{document}
