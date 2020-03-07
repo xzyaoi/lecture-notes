@@ -1,0 +1,171 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{multicol}
+\usepackage{svg}
+\usepackage{caption}
+\usepackage{vmargin}
+\usepackage[hidelinks]{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{epigraph}
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}[subsection]
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{prop}{Proposition}[subsection]
+\newtheorem{lemma}{Lemma}[subsection]
+
+\title{Linear Regression and Least Square Estimator}
+\author{Xiaozhe Yao\footnote{https://yaonotes.org/lecture-notes}}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Linear Regression}
+\subsection{Definition}
+\begin{defi}
+\textbf{Linear Regression} Linear regression is to build a linear model, that could be used for predicting the dependent value. Say there are $n$ independent value, the model will looks like $f(x)=\sum_{i=1}^{n}w_ix_i+b$, where $w$ is called \textit{weight} and $b$ is called \textit{bias}. We can write it in matrix form:
+
+$$f(x)=\left[ {\begin{array}{*{20}c}
+   x_{11} & ... & x_{1n} \\
+   \vdots & \vdots & \vdots \\
+   x_{n1} & \vdots & x_{nn} \\ 
+ \end{array} } \right] \left[ {\begin{array}{*{20}c}
+   w_1 \\
+   \vdots \\
+   w_n \\ 
+ \end{array} } \right] + \left[ {\begin{array}{*{20}c}
+   b_1 \\
+   \vdots \\
+   b_n \\ 
+ \end{array} } \right] = \textbf{X}\textbf{w}+\textbf{b}$$
+ 
+We can simplify it by adding a initial element in $\textbf{w}$ and $x$. Let $\textbf{x}'=\left[ {\begin{array}{*{20}c}
+   1 & x_{11} & ...  & x_{1n}\\
+   1 & \vdots  & \vdots & \vdots \\
+   1 & x_{n1} & ... &x_{nn}\\
+ \end{array} } \right]$ and $\textbf{w}'=\left[ {\begin{array}{*{20}c} w_0 & w_1 &... & w_n \end{array} } \right]^{T}$. Then we have $f(x)=\textbf{X}'\textbf{w}'$. We will use the notation $f(x)=\textbf{X}\textbf{w}$ in the following parts. We also denote the distance between a certain prediction and ground truth as $\epsilon$. Finally, we have the matrix form of linear regression as $\textbf{Y}=\textbf{X}\textbf{w} + \epsilon$, where $\epsilon = [\epsilon_1, ..., \epsilon_n]^{T}$, and we call the $\epsilon$ as residual.
+
+The weight $\textbf{w}$, ground truth $\textbf{Y}$ and error term $\epsilon$ are $n\times 1$ matrices, and $\textbf{X}$ is  a $n\times n$ matrix.
+
+\textit{Note:} In Statistics and Economics, they usually use $\beta$ to denote the weight $\textbf{w}$.
+\end{defi}
+
+\subsection{Least Square Estimator}
+\begin{defi}
+\textbf{Square Loss}Loss function is used to measure the distance between prediction and ground truth. In our case, the loss is defined as the Euclidean distance, i.e. $$\ell=\sqrt{\sum{(\hat{y}_i-y_i)^{2}}}=\sqrt{\sum{(f(x)_i-y_i)^{2}}}=\sqrt{\sum{\epsilon^{2}}}$$
+
+We immediately see that, to optimize the loss, we only need to optimize the sum of $\epsilon$'s square. In matrix form, it is $\epsilon^{T}\epsilon$. Our goal is $\underset{\textbf{w}}{argmin}\ \epsilon^{T}\epsilon$
+\end{defi}
+
+\begin{defi}
+\textbf{Least Square Loss Method} As $\epsilon=\textbf{Y}-\textbf{X}\textbf{w}$, we can expand $\epsilon^{T}\epsilon$.
+
+$\epsilon^{T}\epsilon=(\textbf{Y}-\textbf{X}\textbf{w})^{T}(\textbf{Y}-\textbf{X}\textbf{w}) \\
+=(\textbf{Y}-\textbf{X}\textbf{w})^{T}\textbf{Y}-(\textbf{Y}-\textbf{X}\textbf{w})^{T}\textbf{X}\textbf{w} \\
+=\textbf{Y}^{T}\textbf{Y}-(\textbf{X}\textbf{w})^{T}\textbf{Y}-\textbf{Y}^{T}\textbf{X}\textbf{w}+(\textbf{X}\textbf{w})^{T}\textbf{X}\textbf{w} \\
+=\textbf{Y}^{T}\textbf{Y}-\textbf{w}^{T}\textbf{X}^{T}\textbf{Y}-\textbf{Y}^{T}\textbf{X}\textbf{w}+\textbf{w}^{T}\textbf{X}^{T}\textbf{X}\textbf{w}
+$
+
+The result of $\textbf{w}^{T}\textbf{X}^{T}\textbf{Y}$ and $\textbf{Y}^{T}\textbf{X}\textbf{w}$ are both $1\times 1$ matrices, as $\textbf{W}^{T}$ is $1\times n$, $\textbf{X}^{T}$ is $n\times n$ and $\textbf{Y}$ is $n\times 1$. And we see that $(\textbf{Y}^{T}\textbf{X}\textbf{w})^{T}=\textbf{w}^{T}\textbf{X}^{T}\textbf{Y}$. Therefore, we know $\textbf{Y}^{T}\textbf{X}\textbf{w}=\textbf{w}^{T}\textbf{X}^{T}\textbf{Y}$. We conclude that $\epsilon^{T}\epsilon=\textbf{Y}^{T}\textbf{Y}-2\textbf{w}^{T}\textbf{X}^{T}\textbf{Y}+\textbf{w}^{T}\textbf{X}^{T}\textbf{X}\textbf{w}$
+
+\end{defi}
+
+Now we need to calculate when the $\epsilon^{T}\epsilon$ have minimal value. To calculate this, we need to calculate the matrix deriavatives. Consider $\textbf{w}^{T}\textbf{X}^{T}\textbf{Y}$ first. As $\textbf{X}^{T}\textbf{Y}$ is constants, we regard them as $c$. Then $\textbf{W}^{T}c=w_0c_0+w_1c_1+...+w_nc_n$, then we know 
+
+$$\nabla_w \textbf{W}^{T}c=\left[ {\begin{array}{*{20}c}
+   \frac{\partial w^{T}c}{\partial w_0} \\
+   \vdots \\ 
+   \frac{\partial w^{T}c}{\partial w_n} \\
+ \end{array} } \right] = \left[ {\begin{array}{*{20}c}
+   c_0 \\
+   \vdots \\ 
+   c_n \\
+ \end{array} } \right] = \textbf{c}$$
+
+Therefore, we know the gradient for $-2\textbf{w}^{T}\textbf{X}^{T}\textbf{Y}$ is $-2\textbf{X}^{T}\textbf{Y}$.
+
+Then we consider $\nabla_w \textbf{w}^{T}\textbf{X}^{T}\textbf{X}\textbf{w}$. In this case, we know $\textbf{X}^{T}\textbf{X}$ is constant, and more importantly, symmetric. So we let $\textbf{A}$ be a symmetric matrix $\left[ {\begin{array}{*{20}c}
+   a_{11} & ...  & a_{1n}\\
+   \vdots  & \vdots & \vdots \\
+   a_{1n} & ... &a_{nn}\\
+ \end{array} } \right]$, then we have 
+ 
+ $\textbf{w}^{T}\textbf{A}\textbf{w}=[w_0, ..., w_{n-1}]\left[ {\begin{array}{*{20}c}
+   a_{11} & ...  & a_{1n}\\
+   \vdots  & \vdots & \vdots \\
+   a_{1n} & ... &a_{nn}\\
+ \end{array} } \right] \left[ {\begin{array}{*{20}c}
+   w_{0} \\
+   \vdots \\
+   w_{n-1} \\
+ \end{array} } \right]=[w_0, ..., w_{n-1}]\left[ {\begin{array}{*{20}c}
+   a_{11}w_0 + ... + a_{1n}w_{n-1}\\
+   \vdots \\
+   a_{1n}w_0 + ... + a_{nn}w_{n-1}\\
+ \end{array} } \right] \\
+ =[w_0, ..., w_{n-1}]\left[ {\begin{array}{*{20}c}
+   \sum_{i=1}^{n}w_{i-1}a_{1i}\\
+   \vdots \\
+   \sum_{i=1}^{n}w_{i-1}a_{ni}\\
+ \end{array} } \right]$
+ 
+Clearly the output is a $1\times 1$ scalar: $\textbf{w}^{T}\textbf{A}\textbf{w}=\sum_{i=1}^{n}w_{i-1}(\sum_{j=1}^{n}w_{j-1}a_{ij})$, by applying $a_{ij}=a_{ji}$ as it is symmetric, we have $\textbf{w}^{T}\textbf{A}\textbf{w}=\sum_{i=1}^{n}\sum_{j=1}^{n}a_{ij}w_{i-1}w_{j-1}$. It will look like $\textbf{w}^{T}\textbf{A}\textbf{w}=a_{11}w_o^{2}+a_{22}{w_1}^{2}+a_{33}{w_2}^{2}+...+2a_{12}w_0w_1+2a_{13}w_0w_2+2a_{23}w_1w2...$.
+
+Therefore we know $$\partial_w w^{T}\textbf{A}w=\left[ {\begin{array}{*{20}c}
+   \frac{\partial w^{T}\textbf{A}w}{\partial w_0} \\
+   \vdots\\
+   \frac{\partial w^{T}\textbf{A}w}{\partial w_2} \\
+ \end{array} } \right] = \left[ {\begin{array}{*{20}c}
+   \sum_{i=1}^{n}2w_{i-1}a_{1i}\\
+   \vdots \\
+   \sum_{i=1}^{n}2w_{i-1}a_{ni}\\
+ \end{array} } \right]=2\textbf{A}\textbf{w}$$
+
+Therefore, we know the gradient for $\textbf{w}\textbf{X}^{T}\textbf{X}\textbf{w}$ is $2\textbf{X}^{T}\textbf{X}\textbf{w}$. Therefore we conclude the final gradient is 
+$$
+\nabla_w\epsilon^{T}\epsilon=\left[ {\begin{array}{*{20}c}
+   \frac{\partial\epsilon^{T}\epsilon}{\partial w_0}\\
+   \vdots \\
+   \frac{\partial\epsilon^{T}\epsilon}{\partial w_n}\\
+ \end{array} } \right]=2\textbf{X}^{T}\textbf{X}\textbf{w}-2\textbf{X}^{T}\textbf{Y}
+$$
+
+When $\epsilon^{T}\epsilon$ is minimal, we know the gradient is $\textbf{0}$. Therefore we have $2\textbf{X}^{T}\textbf{X}\hat{\textbf{w}}-2\textbf{X}^{T}\textbf{Y}=0 \implies \textbf{X}^{T}\textbf{X}\hat{\textbf{w}}=\textbf{X}^{T}\textbf{Y} \implies \hat{\textbf{w}}=(\textbf{X}^{T}\textbf{X})^{-1}\textbf{X}^{T}\textbf{Y}$. We usually call the matrix $\textbf{X}(\textbf{X}^{T}\textbf{X})^{-1}\textbf{X}^{T}$ as \textit{hat matrix}, since it converts $\textbf{Y}$ to $\hat{\textbf{Y}}$.
+
+\textit{Note: } In the above case, we calculate $(\textbf{X}^{T}\textbf{X})^{-1}$. To make sure we can perform the inverse operation, we need to have $rank(\textbf{X})=n+1$.
+
+\subsection{Important Properties}
+\begin{defi}
+\textbf{Notations} We will use the following notation marks:
+\begin{itemize}
+    \item $\Bar{y}=\frac{\sum_{i=1}^{n}y_i}{n}$, the mean of the predicted $\textbf{Y}$.
+    \item $\Bar{x}=\frac{\sum_{i=1}^{n}x_i}{n}$, the mean of independent variable $\textbf{X}$.
+    \item $SS_{yy}=\sum_{i=1}^{n}(y_i-\Bar{y})^2$, the corrected sum of squares for dependent variable $\textbf{Y}$.
+    \item $SS_{xx}=\sum_{i=1}^{n}(x_i-\Bar{x})^2$, the corrected sum of squares for independent variable $\textbf{X}$.
+    \item $SD_y^{2}=\frac{\sum_{i=1}^{n}(y_i-\Bar{y})^2}{n-1}=\frac{SS_{yy}}{n-1}$, the standard deviation of $\textbf{Y}$.
+    \item $SD_x^{2}=\frac{\sum_{i=1}^{n}(x_i-\Bar{x})^2}{n-1}=\frac{SS_{xx}}{n-1}$, the standard deviation of $\textbf{X
+    }$.
+    \item $S_{xy}=\sum_{i=1}^{n}(x_i-\Bar{x})(y_i-\Bar{y})$, the cross multiplication of $x$ and $y$.
+    \item $CV_{xy}=\frac{\sum_{i=1}^{n}(x_i-\Bar{x})(y_i-\Bar{y})}{n-1}=\frac{S_{xy}}{n-1}$, the covariance of the samples.
+    \item $r_{xy}=\frac{CV_{xy}}{SD_xSD_y}$, the correlation coefficient of $x,y$.
+    \item $SS_{RES}=\sum_{i=1}^{n}\epsilon^{2}$, the estimated sum of square of residual.
+\end{itemize}
+\end{defi}
+
+\begin{theorem}
+\textbf{Hat Matrix is symmetric and idempotent}.
+\begin{proof}
+$(\textbf{X}(\textbf{X}^{T}\textbf{X})^{-1}\textbf{X}^{T})(\textbf{X}(\textbf{X}^{T}\textbf{X})^{-1}\textbf{X}^{T})=\textbf{X}(\textbf{X}^{T}\textbf{X})^{-1}\textbf{X}^{T}$
+\end{proof}
+\end{theorem}
+
+\begin{theorem}
+The regression estimation will always pass the centering point $(\overline{x},\overline{y})$, i.e. we have $\overline{\textbf{Y}}=\overline{\textbf{X}}\hat{\textbf{w}}$.
+\begin{proof}
+We know $\epsilon = w$
+\end{proof}
+\end{theorem}
+\end{document}

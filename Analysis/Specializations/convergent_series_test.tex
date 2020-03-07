@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{multicol}
+\usepackage{svg}
+\usepackage{caption}
+\usepackage{vmargin}
+\usepackage[hidelinks]{hyperref}
+\usepackage[utf8]{inputenc}
+ \usepackage{epigraph}
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+
+\title{Series Convergence Test}
+\author{Xiaozhe Yao\footnote{https://yaonotes.org/lecture-notes}}
+\date{31 Jan 2020}
+\begin{document}
+
+\maketitle
+
+\section{Fundamental Test Methods}
+\begin{itemize}
+    \item \textbf{$N-$th term test}: If $\lim_{n\to\infty}u_n\neq 0$, then the series is divergent.
+    \item \textbf{$P-$series test}: When $p>1$, the series $\sum_{n=1}^{\infty}\frac{1}{n^p}$ is convergent; When $p\leq 1$, the $p-$ series $\sum_{n=1}^{\infty}\frac{1}{n^p}$ is divergent.
+    \item \textbf{Geometric Series Test}: When $|q|<1$, the geometric series $\sum_{n=0}^{\infty}aq^{n}$ converges to $\frac{a}{1-q}$; When $|q|\geq 1$, the geometric series $\sum_{n=0}^{\infty}aq^{n}$ diverges.
+    \item \textbf{Ratio Test} If $\sum_{n=1}^{\infty}u_n$ is a positive series (each entry is positive), and $\lim_{n\to\infty}\frac{u_{n+1}}{u_n}=\rho$. Then if $\rho<1$, it converges. If $\rho>1$, it diverges. When $\rho=1$, we cannot judge, and have to use other methods.
+    \item \textbf{Comparison Test} Let $\sum_{n=1}^{\infty}u_n$ and $\sum_{n=1}^{\infty}v_n$ two positive series, and $u_n\leq v_n$, then if $\sum_{n=1}^{\infty}v_n$ converges, $\sum_{n=1}^{\infty}u_n$ converges as well. If $\sum_{n=1}^{\infty}u_n$ diverges, $\sum_{n=1}^{\infty}v_n$ diverges as well.
+    \item \textbf{Limit Comparison Test} Let $\sum_{n=1}^{\infty}u_n$ and $\sum_{n=1}^{\infty}v_n$ two positive series, if $\lim_{n\to\infty}\frac{u_n}{v_n}=l$, then:
+    \begin{itemize}
+        \item If $0<l<+\infty$, they have the same convergence property, i.e. both converges or both diverges.
+        \item If $l=0$, If $\sum_{n=1}^{\infty}v_n$ converges, then $\sum_{n=1}^{\infty}u_n$ converges.
+        \item If $l=+\infty$, if $\sum_{n=1}^{\infty}u_n$ diverges, then $\sum_{n=1}^{\infty}u_n$ diverges.
+    \end{itemize}
+    \item \textbf{Alternating Series Test} If the alternating series $\sum_{n=1}^{\infty}(-1)^{n-1}u_n$ satisies: 1) $u_n>u_{n+1}$, i.e. it is monotonically decreasing. 2) $\lim_{n\to\infty}u_n=0$. Then the series converges.
+\end{itemize}
+
+\end{document}

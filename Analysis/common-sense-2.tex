@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{multicol}
+\usepackage{svg}
+\usepackage{caption}
+\usepackage{vmargin}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+
+\title{Some Common Sense in Analysis}
+\author{Xiaozhe Yao\footnote{https://yaonotes.org/lecture-notes/maths/analysis/}}
+\date{20 Feb 2020}
+\begin{document}
+
+\maketitle
+\section{Differential Calculation}
+\subsection{Differentiability}
+\begin{defi}
+The function $f:M\to Y$ is called differentiable at point $x_0\in M$, if the limit $\lim_{x\to x_0}\frac{f(x)-f(x_0)}{x-x_0}$ in $Y$ exists. If $f$ is differentiable at point $x_0$, we write it as: $f'(x_0):=Df(x_0) := \frac{df}{dx}(x_0) := \lim_{x\to x_0}\frac{f(x)-f(x_0)}{x-x_0} := \lim_{h\to 0}\frac{f(x_0+h)-f(x_0)}{h}$, and we call it the derivative of $f$ in $x_0$.
+\end{defi}
+\begin{prop}
+The following statements are equivalent:
+\begin{itemize}
+    \item $f$ is differentiable in $x_0$.
+    \item There exists a $c\in Y$ such that $\lim_{x\to x_0}\frac{f(x)-f(x_0)-c\cdot (x-x_0)}{x-x_0}=0$.
+    \item There exists a $c\in Y$, and a map $r: M\to Y$, that are continuous in $x_0$ and $r(x_0)=0$, so that we have $f(x)=f(x_0)+c(x-x_0)+r(x)(x-x_0), \forall x\in M$.
+\end{itemize}
+\end{prop}
+\textit{Note:} In case $2$, $3$, $c$ is the derivative of $f$ in $x_0$.
+\begin{proof} We prove this one by one.
+\begin{itemize}
+    \item $1\implies 2$:It is trivial, by letting $c=f'(x_0)$.
+    \item $2\implies 3$:
+    \item $3\implies 1$:
+\end{itemize}
+\end{proof}
+\begin{theorem}
+\textbf{Basic Calculation Laws}
+We have the following calculation laws:
+\begin{itemize}
+    \item $f: \mathbb{C}\to\mathbb{C}, f(z)=z^{n}, n\in\mathbb{N}_{\geq1}$ is differentiable for all $z\in\mathbb{C}$ and we have $f'(z)=nz^{n-1}$.
+    \item $f:\mathbb{C}\to\mathbb{C}, f(z):=e^{z}$ is differentiable for all $z\in\mathbb{C}$ and $f'(z)=e^z$.
+    \item $f: \mathbb{R}-\{0\}\to\mathbb{R}, f(x)=\frac{1}{x}$ is differentiable for any $x\in\mathbb{R}-\{0\}$, and $f'(x)=-\frac{1}{x^2}$.
+    \item $f: \mathbb{R}\to\mathbb{R}^{2}, f(x)=(x, x^2)$ 
+\end{itemize}
+\end{theorem}
+\end{document}
+

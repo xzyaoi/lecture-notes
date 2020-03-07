@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{multicol}
+\usepackage{svg}
+\usepackage{caption}
+\usepackage{vmargin}
+\usepackage[hidelinks]{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{epigraph}
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}[subsection]
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{prop}{Proposition}[subsection]
+\newtheorem{lemma}{Lemma}[subsection]
+
+\title{Probability Models and Axioms}
+\author{Xiaozhe Yao\footnote{https://yaonotes.org/lecture-notes}}
+\date{06 Feb 2020}
+\begin{document}
+
+\maketitle
+
+\section{Basic Concepts}
+
+\begin{defi}
+\textbf{Sample Space} is the set of all possible outcomes of an experiment. The elements of the set should have certain properties: \begin{itemize}
+    \item \textit{Mutually Exclusive}. At the end of the experiment, there can only be one of the outcomes that has happened.
+    \item \textit{Collectively Exhaustive}. At the end of the experiment, we should always be able to point to \textbf{exactly} one of the possible outcomes as the outcome that occurred.
+    \item \textit{At the right Granularity}. The sample space that we pick should give what we're interested in.
+\end{itemize}
+\end{defi}
+
+\end{document}

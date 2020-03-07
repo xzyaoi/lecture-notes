@@ -239,7 +239,7 @@ Let $z=x+iy, x,y\in \mathbb{R}$. We have the following concepts:
 The following statements are equivalent:
 \begin{itemize}
     \item $a$ is the accumulation point of $(x_n)_n\in \mathbb{N}$
-    \item $\forall\epsilon >0, \forall n\in \mathbb{N}, \exists m \leq n: |x_m-a|<\epsilon$
+    \item $\forall\epsilon >0, \forall n\in \mathbb{N}, \exists m \geq n: |x_m-a|<\epsilon$
 \end{itemize}
 \begin{proof}
 
@@ -603,7 +603,7 @@ We have the following statements:
 \begin{itemize}
     \item $\emptyset, X$ are dense.
     \item Any intersection of dense sets are dense.
-    \item Infinite union of dense sets are still dense.
+    \item Finite union of dense sets are still dense.
 \end{itemize}
 \begin{proof}
 TBD.
@@ -797,7 +797,7 @@ Let $f: I \to \mathbb{R}$ a continuous and strictly monotonically increasing (re
 \begin{itemize}
     \item $exp(z) := e^z := \sum_{n=0}^{\infty}\frac{z^n}{n!}$.
     \item $cos(z) := \sum_{n=0}^{\infty}(-1)^{n}\frac{z^{2n}}{(2n)!}$
-    \item $cos(z) := \sum_{n=0}^{\infty}(-1)^{n}\frac{z^{2n+1}}{(2n+1)!}$
+    \item $sin(z) := \sum_{n=0}^{\infty}(-1)^{n}\frac{z^{2n+1}}{(2n+1)!}$
 \end{itemize}
 \end{defi}
 \begin{prop}
@@ -876,18 +876,4 @@ For all $z\in\mathbb{C}\texttt{\textbackslash}\{0\}$ there exist only one $\alph
 \begin{prop}
 For all $a\in\mathbb{C}\texttt{\textbackslash}\{0\}$, the equation $z^n=a$ has exactly $n$ different solutions: $z_k=|a|^{\frac{1}{n}}e^{\frac{i(arg(a)+2\pi k)}{n}}$.
 \end{prop}
-\section{Differential Calculation}
-\subsection{Differentiability}
-\begin{defi}
-The function $f:M\to Y$ is called differentiable at point $x_0\in M$, if the limit $\lim_{x\to x_0}\frac{f(x)-f(x_0)}{x-x_0}$ in $Y$ exists. If $f$ is differentiable at point $x_0$, we write it as: $f'(x_0):=Df(x_0) := \frac{df}{dx}(x_0) := \lim_{x\to x_0}\frac{f(x)-f(x_0)}{x-x_0} := \lim_{h\to 0}\frac{f(x_0+h)-f(x_0)}{h}$, and we call it the derivative of $f$ in $x_0$.
-\end{defi}
-\begin{prop}
-The following statements are equivalent:
-\begin{itemize}
-    \item $f$ is differentiable in $x_0$.
-    \item There exists a $c\in Y$ such that $\lim_{x\to x_0}\frac{f(x)-f(x_0)-c\cdot (x-x_0)}{x-x_0}=0$.
-    \item There exists a $c\in Y$, and a map $r: M\to Y$, that are continuous in $x_0$ and $r(x_0)=0$, so that we have $f(x)=f(x_0)+c(x-x_0)+r(x)(x-x_0), \forall x\in M$.
-\end{itemize}
-\end{prop}
-\textit{Note:} In case $2$, $3$, $c$ is the derivative of $f$ in $x_0$.
 \end{document}
