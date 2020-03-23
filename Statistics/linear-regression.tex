@@ -53,9 +53,9 @@ The weight $\textbf{w}$, ground truth $\textbf{Y}$ and error term $\epsilon$ are
 \textit{Note:} In Statistics and Economics, they usually use $\beta$ to denote the weight $\textbf{w}$.
 \end{defi}
 
-\subsection{Least Square Estimator}
+\subsection{Ordinary Least Square Estimator}
 \begin{defi}
-\textbf{Square Loss}Loss function is used to measure the distance between prediction and ground truth. In our case, the loss is defined as the Euclidean distance, i.e. $$\ell=\sqrt{\sum{(\hat{y}_i-y_i)^{2}}}=\sqrt{\sum{(f(x)_i-y_i)^{2}}}=\sqrt{\sum{\epsilon^{2}}}$$
+\textbf{Square Loss} Loss function is used to measure the distance between prediction and ground truth. In our case, the loss is defined as the Euclidean distance, i.e. $$\ell=\sqrt{\sum{(\hat{y}_i-y_i)^{2}}}=\sqrt{\sum{(f(x)_i-y_i)^{2}}}=\sqrt{\sum{\epsilon^{2}}}$$
 
 We immediately see that, to optimize the loss, we only need to optimize the sum of $\epsilon$'s square. In matrix form, it is $\epsilon^{T}\epsilon$. Our goal is $\underset{\textbf{w}}{argmin}\ \epsilon^{T}\epsilon$
 \end{defi}
@@ -163,9 +163,29 @@ $(\textbf{X}(\textbf{X}^{T}\textbf{X})^{-1}\textbf{X}^{T})(\textbf{X}(\textbf{X}
 \end{theorem}
 
 \begin{theorem}
-The regression estimation will always pass the centering point $(\overline{x},\overline{y})$, i.e. we have $\overline{\textbf{Y}}=\overline{\textbf{X}}\hat{\textbf{w}}$.
+The sum of residuals, (the original value, not the absolute value), is always 0.
 \begin{proof}
-We know $\epsilon = w$
+The proof is by using the condition that the derivatives is zero. As we know $2\textbf{X}^{T}\textbf{X}\hat{\textbf{w}}-2\textbf{X}^{T}\textbf{Y}=\textbf{0}$, i.e. we have $\textbf{X}^{T}\textbf{X}\hat{\textbf{w}}-\textbf{X}^{T}\textbf{Y}=\textbf{0}$, then we get $\textbf{X}^{T}(\textbf{X}\hat{\textbf{w}}-\textbf{Y})=\textbf{X}^{T}\epsilon=\textbf{0}$. Recall that the $\textbf{X}=\left[ {\begin{array}{*{20}c}
+   1 & x_{11} & ...  & x_{1n}\\
+   1 & \vdots  & \vdots & \vdots \\
+   1 & x_{n1} & ... &x_{nn}\\
+ \end{array} } \right]$, so the first row of $\textbf{X}^{T}=[1,1,1...,1]$ and therefore the first row of $\textbf{X}^T$ is $\sum{\epsilon}=0$.
 \end{proof}
 \end{theorem}
+
+\begin{theorem}
+The regression estimation will always pass the centering point $(\overline{x},\overline{y})$, i.e. we have $\overline{\textbf{Y}}=\overline{\textbf{X}}\hat{\textbf{w}}$.
+\begin{proof}
+Recall the definition of residuals, and combining the theorem that sum of residuals equals to 0, we have $\sum_{i=1}^{n}\epsilon=\sum(y_i-\hat{y_i})=\sum(y_i-wx-b)=0\implies \sum_{i=1}^{n}y_i-\sum_{i=1}^{n}wx-\sum b=0$, divide it by $n$, we get $\frac{1}{n}\sum_{i=1}^{n}y_i-\frac{1}{n}\sum_{i=1}^{n}wx -\frac{1}{n}\sum b=0\:(1)$, by definition $\overline{y}=\frac{1}{n}\sum_{i=1}^{n}y_i$ and $\overline{x}=\frac{1}{n}\sum_{i=1}^{n}x_i$. Plugging them into $(1)$, we get $\overline{y}=w\overline{x}+b$, i.e. $\overline{\textbf{Y}}=\overline{\textbf{X}}\hat{\textbf{w}}$.
+\end{proof}
+\end{theorem}
+
+\begin{defi}
+
+\end{defi}
+
+\begin{defi}
+\textbf{Estimation of the residual variance ($\sigma^2$)} The residual variance $\sigma^2$ is defined as the square sum of all residuals and then divide it by the number of samples, i.e. $\hat{\sigma}^2=\sum_{i=1}^{n}\frac{\hat{\epsilon}^2}{n}=$
+\end{defi}
+
 \end{document}

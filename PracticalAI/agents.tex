@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{algorithmic}
+\usepackage{multicol}
+\usepackage{svg}
+\usepackage{caption}
+\usepackage{vmargin}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+
+\title{Practical Artificial Intelligence \\ Agents}
+\author{Xiaozhe Yao\footnote{https://yaonotes.org/lecture-notes/}}
+\date{\today}
+\begin{document}
+
+\maketitle
+\section{Agents and Environments}
+\begin{defi}
+\textbf{Agents} An agent is anything that can be viewed as perceiving its environment through sensors and acting upon that environment through actuators. For example, human agents includes \textit{eyes, ears and other organs} for \textbf{sensors}, as well as \textit{hands, legs, mouth and other body parts} for \textbf{actuators}. For robotics, it includes \textit{cameras and infrared range finders} for \textbf{sensors} as well as various motors for \textbf{actuators}.
+
+The agent function maps from percept histories to actions, i.e. $f: \mathcal{P}^{*}\to \mathcal{A}$. The agent program runs on the physical architecture to produce such $f$. Agents = architecture + program.
+\end{defi}
+
+\begin{defi}
+\textbf{Rational Agents} An agent should strive to do the right thing, based on what it can perceive and the actions it can perform. The right actions are the ones that will cause the agent to be most successful. The performance measure is an objective criterion for success of an agent's behavior. For example, the performance measure for a vaccum-cleaner agent could be the amount of dirt cleaned up, amount of time taken, amount of electricity consumed, amount of noise generated, etc.
+
+For each possible percept sequence, a rational agent should select an action that is expected to maximize its performance measure, given the evidence provided by the percept sequence and whatever built-in knowledge the agent has.
+
+Rationality is distinct from omniscience. The agents is, sometimes, not able to know everything and therefore the rationality only means for finite knowledge.
+
+Agents can perform actions in order to modify future percepts so as to obtain useful information. It is like information gathering or exploration.
+
+An agent is autonomous if its behavior is determined by its own experience, with the ability to learn and adapt.
+\end{defi}
+
+\begin{defi}
+\textbf{PEAS} \textbf{P}erformance measure, \textbf{E}nvironment, \textbf{A}ctuators, \textbf{S}ensor. The principle is used to specify the settings for intelligent agent design.
+\end{defi}
+
+\begin{defi}
+\textbf{Environment Types}. By different classification criterion, we have the following different types of environments:
+\begin{itemize}
+    \item Fully Observable (v.s Partially Observable). An agent's sensors give it access to the complete state of the environment at each point in a time.
+    \item Deterministic (v.s Stochastic). The next state of the environment is completely determined by the current state and the action executed by the agent. (If the environment is deterministic except for the actions of other agents, then the environment is \textbf{strategic}.)
+    \item Episodic (v.s Sequential). The agent's experience is divided into atomic "episodes", each episode consists of the agent perceiving and then performing a single action, and the choice of action in each episode depends only on the episode itself.
+    \item Static (v.s Dynamic). The environment is unchanged while an agent is deliberating. (The environment can be semi-dynamic if the environment itself does not change with the passage of time, but the agent's performance score).
+    \item Discrete (v.s Continuous). A limited number of distinct, clearly defined percepts and actions.
+    \item Single Agent (v.s multiagent). An agent operating by itself in an environment.
+\end{itemize}
+\end{defi}
+
+\begin{defi}
+\textbf{Agent Functions and Programs} An agent is completely specified by the agent function mapping percept sequences to actions. One agent function, or a small equivalence class is rational. The aim is to find a way to implement the rational agent function concisely. For example, an agent program for a vacuum cleaner agent, which maps $(location, status)\to$ an action, can be shown as below:
+
+\begin{algorithmic}
+  \IF{status == Dirty}
+    \STATE return "such"
+  \ELSIF{location == A}
+    \STATE return "to B"
+  \ELSIF{location == B}
+    \STATE return "to A"
+  \ENDIF
+\end{algorithmic}
+\end{defi}
+\begin{defi}
+\textbf{Agent Types} There are four basic types in order of increasing generality:
+\begin{itemize}
+    \item Simple Reflex agents.
+    \item Model-Based Reflex agents.
+    \item Goal-Based agents.
+    \item Utility-based agents.
+\end{itemize}
+\end{defi}
+\end{document}
