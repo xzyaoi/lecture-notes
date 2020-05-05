@@ -72,7 +72,7 @@ By different sample spaces, probability distributions can be divided into the fo
 \end{itemize}
 \end{prop}
 \begin{theorem}
-\textbf{The expectation and variance theorem}. Assume $X,Y$ are two independent variables.
+\textbf{The expectation and variance for two variables}. Assume $X,Y$ are two independent variables.
     \begin{itemize}
         \item $E(XY)=E(X)E(Y)$.
         \item $Var(X+Y)=Var(X)+Var(Y)$.
@@ -111,17 +111,17 @@ When calculating the PMF, we can safely calculate only $\frac{n}{2}$, by the def
 \begin{figure}[h]
 \caption{Probability Mass Function for Binomial Distribution}
 \centering
-\includegraphics[width=\textwidth]{Statistics/images/Binomial_distribution_pmf.pdf}
+\includegraphics[width=200pt]{Statistics/images/Binomial_distribution_pmf.pdf}
 \end{figure}
 
 \end{prop}
 
 \begin{prop}
-\textbf{CMF} The cumulative distribution function can be expressed as $F(k,n,p)=Pr(X\leq k)=\sum_{i=0}^{\floor*{k}}C_{n}^{i}p^i(1-p)^{n-i}$, where $\floor*{k}$ refers to the greatest integer less than or equal to $k$.
+\textbf{CDF} The cumulative distribution function can be expressed as $F(k,n,p)=Pr(X\leq k)=\sum_{i=0}^{\floor*{k}}C_{n}^{i}p^i(1-p)^{n-i}$, where $\floor*{k}$ refers to the greatest integer less than or equal to $k$.
 \begin{figure}[h]
 \caption{Cumulative Distribution Function for Binomial Distribution}
 \centering
-\includegraphics[width=\textwidth]{Statistics/images/Binomial_distribution_cdf.pdf}
+\includegraphics[width=200pt]{Statistics/images/Binomial_distribution_cdf.pdf}
 \end{figure}
 
 \end{prop}
@@ -133,7 +133,7 @@ This follows from the linearity of the expected value along with fact that $X$ i
 \end{prop}
 
 \begin{prop}
-\textbf{Variance} If $X\sum B(n,p)$, then $Var(X)=np(1-p)$.
+\textbf{Variance} If $X\sim B(n,p)$, then $Var(X)=np(1-p)$.
 \begin{proof}
 It also follows from the fact that the variance of a sum of independent random variables is the sum of the variances.
 $Var(X)=Var(\sum_{i=1}^{n}X_i)=Var(X_1+...+X_n)=Var(X_1)+...+Var(X_n)=\sum_{i=1}^{n}Var(X_i)=np(1-p)$.
@@ -155,11 +155,79 @@ In Binomial Distribution, every trial is independent to each other. In some case
 \begin{prop}
 \textbf{PMF} The following conditions characterize the hypergeometric distribution:
 \begin{itemize}
-    \item The result of each draw is binary.
+    \item The result of each draw is binary, just the same as in binomial distribution.
+    \item The probability of a success changes on each draw, because the population decreases after every single trial.
+\end{itemize}
+
+A random variable follows the hypergeometric distribution if its probability mass function is given by $P_X(k)=Pr(X=k)=\frac{C_K^{k}C_{N-K}^{n-k}}{C_N^n}$, where \begin{itemize}
+    \item $N$ is the population size.
+    \item $K$ is the number of success states in the population.
+    \item $n$ is the number of draws, i.e. quantity drawn in each trial.
+    \item $k$ is the number of observed successes.
+\end{itemize}
+\begin{figure}[h]
+\caption{Probability Mass Function for Hypergeometric Distribution}
+\centering
+\includegraphics[width=200pt]{Statistics/images/hyper_geometric_pmf.pdf}
+\end{figure}
+\end{prop}
+
+\begin{prop}
+\textbf{CDF}: The cumulative distribution function for Hypergeometric distribution is defined as $$F(M,K,N)=\sum_{i=0}^{x}\frac{C_i^{k}C_{N-i}^{n-k}}{C_N^n}$$
+\begin{figure}[h]
+\caption{Cumulative Distribution Function for Hypergeometric Distribution}
+\centering
+\includegraphics[width=200pt]{Statistics/images/hyper_geometric_cdf.pdf}
+\end{figure}
+\end{prop}
+
+\textit{Note:} From the graphs comparing CDF/PMF of Binomial Distribution and Hypergeometric Distribution, we see they are quite similar \textbf{when the sample population is large}.
+
+\section{Poisson Distribution}
+\begin{defi}
+\textbf{Poisson Distribution} Poisson Distribution is a discrete probability distribution that expresses the probability of a given number of events occurring in a fixed interval of time or space if these events occur with a known constant mean rate and independently of the time since the last event. It is useful when we want to model \textbf{times of events} in a certain spatial or temporal interval.
+
+When a random variable follows Poisson distribution, we write it as $X\sim P(\lambda)$ or $X\sim \pi(\lambda)$ where $\lambda$ represents the frequency of the event.
+
+The Poisson distribution is an appropriate model if the following assumptions are true:
+\begin{itemize}
+    \item $k$ is the number of times an event occurs in an interval, $k\in\mathbb{N}_{>0}$.
+    \item The occurrence of one event does not affect the probability that a second event will occur. i.e. events occur independently.
+    \item The average rate at which events occur is independent of any occurrences. Usually, it is assumed to be constant, but may vary with time in practice.
+    \item Two events cannot occur at exactly the same instant; instead, at each very small sub-interval exactly one event either occurs or does not occur.
+\end{itemize}
+
+For example, the Poisson distribution may be applied to the following events:
+\begin{itemize}
+    \item The number of meteorites greater than 1 meter diameter that strike Earth in a year.
+    \item The number of patients arriving in an emergency room between 10 and 11 pm.
+    \item The number of laser photons hitting a detector in a particular time interval.
+\end{itemize}
+
+The Poisson distribution is the limit of binomial distribution, for which the probability of success for each trial equals to $\lambda$ divided by the number of trials, as the number of trials approaches infinity.
+
+\end{defi}
+
+\begin{defi}
+\textbf{PMF} A discrete random variable $X$ is said to have a Poisson distribution with parameter $\lambda>0$, if for $k=0,1,2,...$, the probability mass function of $X$ is given by $f(k;\lambda)=Pr(X=k)=\frac{\lambda^ke^{-\lambda}}{k!}$. It means the probability of observing $k$ events in an interval where $\lambda$ is the average number of events per interval.
+\begin{figure}[h]
+\caption{Probability Mass Function for Poisson Distribution}
+\centering
+\includegraphics[width=200pt]{Statistics/images/Poisson_pmf.pdf}
+\end{figure}
+\end{defi}
+
+\begin{prop}
+If $X\sim \pi(\lambda)$, then it has the following properties:
+\begin{itemize}
+    \item $E(X)=\lambda$
+    \begin{proof}
+    $E(X)=\sum_{x=0}^{\infty}xP(X=x)$
+    \end{proof}
+    \item $Var(X)=\lambda$
 \end{itemize}
 \end{prop}
 
-\section{Poisson Distribution}
-
+\subsection{Exponential Distribution}
 \section{Normal Distribution}
 \end{document}
